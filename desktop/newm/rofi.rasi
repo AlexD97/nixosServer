@@ -1,0 +1,4 @@
+@theme "arthur"
+* {
+    font: "SauceCodePro Nerd Font 12";
+}
