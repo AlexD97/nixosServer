@@ -23,10 +23,12 @@ in
   };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-0b0368b3-9bc2-4b12-b56f-2f97b062db9c".device = "/dev/disk/by-uuid/0b0368b3-9bc2-4b12-b56f-2f97b062db9c";
-  boot.initrd.luks.devices."luks-0b0368b3-9bc2-4b12-b56f-2f97b062db9c".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-daacb8ec-48e8-4f8a-bb18-8a541c3c2824".device = "/dev/disk/by-uuid/daacb8ec-48e8-4f8a-bb18-8a541c3c2824";
+  boot.initrd.luks.devices."luks-daacb8ec-48e8-4f8a-bb18-8a541c3c2824".keyFile = "/crypto_keyfile.bin";
 
   # boot.kernelParams = [ "nomodeset" ];
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
