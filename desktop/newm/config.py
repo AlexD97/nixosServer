@@ -21,9 +21,10 @@ def on_startup():
     os.system("hash dbus-update-activation-environment 2>/dev/null && \
         dbus-update-activation-environment --systemd DISPLAY \
         WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots QT_QPA_PLATFORM=wayland-egl")
-    os.system("systemctl --user restart kdeconnect.service")
-    os.system("systemctl --user restart kdeconnect-indicator.service")
-    os.system("systemctl --user restart syncthingtray.service")
+    #os.system("sleep 8")
+    #os.system("systemctl --user restart kdeconnect.service")
+    #os.system("systemctl --user restart kdeconnect-indicator.service")
+    #os.system("systemctl --user restart syncthingtray.service")
 
 def on_reconfigure():
     os.system("notify-send newm \"Reloaded config\" &")
@@ -69,6 +70,8 @@ def rules(view):
         return { 'blur': { 'radius': 5, 'passes': 3}}
     if view.app_id == "waybar":
         return { 'blur': { 'radius': 5, 'passes': 3}}
+    if view.app_id == "syncthingtray":
+        return { 'float': True }
     return None
 
 view = {

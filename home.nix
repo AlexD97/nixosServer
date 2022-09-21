@@ -1,4 +1,4 @@
-inputs@{ config, pkgs, ... }:
+inputs@{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -21,6 +21,7 @@ inputs@{ config, pkgs, ... }:
 
   imports = [
     ./desktop/newm
+    ./desktop/emacs
   ];
 
   home.sessionVariables = { QT_QPA_PLATFORM="wayland-egl"; };
@@ -36,7 +37,6 @@ inputs@{ config, pkgs, ... }:
 
     udiskie
     jmtpfs
-    ntfs3g
 
     libappindicator
     pavucontrol
@@ -44,6 +44,11 @@ inputs@{ config, pkgs, ... }:
     julia-bin
     
     (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" ]; })
+
+    texlive.combined.scheme-full
+
+    sioyek
+    evince
 
     borgbackup
     vorta
@@ -63,12 +68,27 @@ inputs@{ config, pkgs, ... }:
       indicator = true;
     };
     syncthing = {
-      enable = true;
+    #  enable = true;
       tray = {
         enable = true;
         command = "syncthingtray --wait";
       };
     };
+  };
+
+  systemd.user.services.kdeconnect.Service = {
+    Restart = lib.mkOverride 0 "on-failure";
+    RestartSec = "3";
+  };
+
+  systemd.user.services.kdeconnect-indicator.Service = {
+    Restart = lib.mkOverride 0 "on-failure";
+    RestartSec = "3";
+  };
+
+  systemd.user.services.syncthingtray.Service = {
+    Restart = "on-failure";
+    RestartSec = "3";
   };
 
   systemd.user.targets.tray = {

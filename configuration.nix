@@ -126,6 +126,9 @@ in
   # SSD trim
   services.fstrim.enable = lib.mkDefault true;
 
+  # NTFS support
+  boot.supportedFilesystems = [ "ntfs" ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;

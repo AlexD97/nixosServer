@@ -1,0 +1,474 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+;; I suggest to keep these comment lines, too
+;; below you will see customization automatically added by Emacs
+
+(require 'use-package)
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+;(load-theme 'atom-one-light t)
+(load-theme 'one-light t)
+
+(load "~/.emacs.d/plugins/htmlize.el")
+(require 'htmlize)
+
+(setq-default TeX-engine 'xetex)
+
+
+;; Org and Org-roam
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done 'time)
+(setq org-agenda-files (list "~/Dokumente/Notizen/Allgemein.org"
+			     "~/Dokumente/Notizen/journals"))
+
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+(add-to-list 'org-latex-packages-alist
+             '("AUTO" "babel" t ("pdflatex" "xelatex")))
+
+(load "~/.emacs.d/calendar/org-caldav")
+(require 'org-caldav)
+(setq org-caldav-url "http://omvnas:5232/alexander")
+(setq org-caldav-calendar-id "66b63628-b368-6e00-a031-d18ae03f77f9")
+(setq org-caldav-inbox "~/Dokumente/Notizen/Caldav_Inbox.org")
+(setq org-caldav-files org-agenda-files)
+
+(setq org-support-shift-select 'always)
+;(add-hook 'org-shiftup-final-hook 'windmove-up)
+;(add-hook 'org-shiftleft-final-hook 'windmove-left)
+;(add-hook 'org-shiftdown-final-hook 'windmove-down)
+;(add-hook 'org-shiftright-final-hook 'windmove-right)
+(add-hook 'org-mode-hook '(lambda ()
+			     (visual-line-mode)
+			     (org-indent-mode)))
+;(add-hook 'org-mode-hook #'toggle-word-wrap)
+
+;; Org-export
+(defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
+  (unless pub-dir
+    (setq pub-dir (concat "org_export_" (substring extension 1)))
+    (unless (file-directory-p pub-dir)
+      (make-directory pub-dir)))
+  (apply orig-fun extension subtreep pub-dir nil))
+(advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified)
+
+(setq org-latex-compiler "xelatex") ;; this needs revision
+(setq org-latex-pdf-process '("latexmk -xelatex -interaction=nonstopmode -output-directory=%o %f"))
+(dolist (ltx_pkg '(("" "fontspec") ("" "xunicode") ("" "unicode-math"))) 
+  (add-to-list 'org-latex-packages-alist ltx_pkg))
+
+;; Latex Koma-Script classes
+(with-eval-after-load "ox-latex"
+  (add-to-list 'org-latex-classes
+               '("scrartcl" "\\documentclass{scrartcl}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("scrreprt" "\\documentclass{scrreprt}"
+		 ("\\chapter{%s}". "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("beamer" "\\documentclass{beamer}"
+		 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
+;; see https://emacs.stackexchange.com/questions/30341/how-do-i-customize-the-process-that-gets-triggered-in-org-preview-latex-fragment
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("~/Dokumente/Notizen/Allgemein.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-24.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-16.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-14.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-13.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-10.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-09.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-08.org"))
+ '(org-icalendar-alarm-time 2880)
+ '(org-icalendar-categories '(all-tags all-tags))
+ '(org-icalendar-use-deadline '(event-if-not-todo event-if-todo-not-done todo-due))
+ '(org-icalendar-use-scheduled '(event-if-not-todo event-if-todo-not-done todo-start))
+ '(org-link-frame-setup
+   '((vm . vm-visit-folder-other-frame)
+     (vm-imap . vm-visit-imap-folder-other-frame)
+     (gnus . org-gnus-no-new-news)
+     (file . find-file)
+     (wl . wl-other-frame)))
+ '(org-preview-latex-process-alist
+   '((dvipng :programs
+	     ("lualatex" "dvipng")
+	     :description "dvi > png" :message "you need to install the programs: latex and dvipng." :image-input-type "dvi" :image-output-type "png" :image-size-adjust
+	     (1.0 . 1.0)
+	     :latex-compiler
+	     ("lualatex -output-format dvi -interaction nonstopmode -output-directory %o %f")
+	     :image-converter
+	     ("dvipng -fg %F -bg %B -D %D -T tight -o %O %f"))
+     (dvisvgm :programs
+	      ("latex" "dvisvgm")
+	      :description "dvi > svg" :message "you need to install the programs: latex and dvisvgm." :use-xcolor t :image-input-type "xdv" :image-output-type "svg" :image-size-adjust
+	      (1.7 . 1.5)
+	      :latex-compiler
+	      ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+	      :image-converter
+	      ("dvisvgm %f -n -b min -c %S -o %O"))
+     (imagemagick :programs
+		  ("latex" "convert")
+		  :description "pdf > png" :message "you need to install the programs: latex and imagemagick." :use-xcolor t :image-input-type "pdf" :image-output-type "png" :image-size-adjust
+		  (1.0 . 1.0)
+		  :latex-compiler
+		  ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+		  :image-converter
+		  ("convert -density %D -trim -antialias %f -quality 100 %O"))))
+ '(package-selected-packages
+   '(notmuch vterm vterm-toggle dired-hide-dotfiles diredfl all-the-icons all-the-icons-dired restart-emacs svg-tag-mode rainbow-delimiters elisp-slime-nav rg quelpa-use-package org-journal ox-reveal lsp-ui company lsp-julia lsp-mode lv markdown-mode ht dash-functional quelpa julia-mode olivetti counsel swiper ivy one-themes org-roam auctex))
+ '(safe-local-variable-values
+   '((eval progn
+	   (setq-local org-roam-directory "~/Dokumente/Notizen/")
+	   (setq-local org-roam-db-location "~/Dokumente/Notizen/org-roam.db")
+	   (setq-local org-roam-file-exclude-regexp
+		       (rx ".stversions"))
+	   (setq-local org-roam-capture-templates
+		       '(("d" "default" plain "%?" #'org-roam-capture--get-point "%?" :target
+			  (file+head "pages/${slug}.org" "#+title: ${title}
+")
+			  :unnarrowed t)))))))
+(setq org-preview-latex-default-process 'dvisvgm)
+
+
+(load "~/.emacs.d/plugins/org-bullets.el")
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+;;; Org-roam
+;;; Tell Emacs to start org-roam-mode when Emacs starts
+(add-hook 'after-init-hook 'org-roam-setup)
+
+(setq org-roam-directory "~/Dokumente/Geistliches/Schreiben")
+(setq org-roam-v2-ack t)
+
+(org-roam-db-autosync-mode)
+(setq org-roam-completion-everywhere t)
+
+
+;;; Define key bindings for Org-roam
+;(global-set-key (kbd "C-c n r") #'org-roam-buffer-toggle-display)
+;(global-set-key (kbd "C-c n i") #'org-roam-insert)
+;(global-set-key (kbd "C-c n /") #'org-roam-find-file)
+;(global-set-key (kbd "C-c n b") #'org-roam-switch-to-buffer)
+;(global-set-key (kbd "C-c n d") #'org-roam-find-directory)
+(global-set-key (kbd "C-c n l") #'org-roam-buffer-toggle)
+(global-set-key (kbd "C-c n f") #'org-roam-node-find)
+(global-set-key (kbd "C-c n i") #'org-roam-node-insert)
+(global-set-key (kbd "C-M-q") #'completion-at-point)
+(global-set-key (kbd "C-c n d") #'org-roam-dailies-map)
+;(with-eval-after-load 'org
+;  (define-key org-mode-map (kbd "C-M-q") #'completion-at-point))
+;(use-package org
+;  :bind (:map org-mode-map
+;         ("C-M i" . completion-at-point)))
+(require 'org-roam-dailies)
+(setq org-roam-dailies-directory "Bibelstudium/journals/")
+;;(setq org-roam-capture-templates
+;;'(("d" "default" plain
+;;    #'org-roam-capture--get-point "%?"
+;;    :file-name "pages/${slug}" :head "#+title: ${title}\n" :unnarrowed t)))
+(setq org-roam-capture-templates
+'(("d" "default" plain "%?"
+    #'org-roam-capture--get-point "%?"
+    :target (file+head "Bibelstudium/Themen/${slug}.org"
+                       "#+title: ${title}\n")
+    :unnarrowed t)))
+
+
+    
+;; Org-journal
+(setq org-journal-dir "~/Dokumente/Notizen/journals/")
+(setq org-journal-file-format "%Y-%m-%d.org")
+(setq org-journal-date-format "%A, %d.%m.%Y")
+(setq org-journal-time-prefix "* ")
+(setq org-journal-date-prefix "#+title: ")
+
+;(setq org-journal-enable-agenda-integration t
+;      org-icalendar-store-UID t
+(setq org-icalendar-include-todo 'all
+      org-icalendar-combined-agenda-file "~/Dokumente/Notizen/journals/org-journal.ics")
+
+;; Org-refile
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+    
+
+;; Org-reveal
+(setq org-reveal-root "file:///home/alexander/Programme/reveal.js-master")
+
+
+;; Ivy,Counsel, & Swiper
+;; Enable Ivy mode in general
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+
+;; Add Counsel and Swiper search functions
+(global-set-key (kbd "C-c f r") #'counsel-recentf)
+;;(global-set-key (kbd "C-s") #'swiper)
+(global-set-key (kbd "C-s") #'swiper)
+(global-set-key (kbd "C-c r") #'counsel-rg)
+
+;; Replace default "M-x" and "C-x C-f" with Counsel version
+(global-set-key (kbd "M-x") #'counsel-M-x)
+(global-set-key (kbd "C-x C-f") #'counsel-find-file)
+
+;; Optionally, you can replace these default functions with Counsel version, too
+;;(global-set-key (kbd "C-h f") 'counsel-describe-function)
+;;(global-set-key (kbd "C-h v") 'counsel-describe-variable)
+
+
+;; Olivetti
+;; Look & Feel for long-form writing
+
+;; Set the body text width
+(setq olivetti-body-width 120)
+
+;; Enable Olivetti for text-related mode such as Org Mode
+(add-hook 'text-mode-hook 'olivetti-mode)
+
+
+;;; Let's also assign C-z to undo here
+(global-set-key (kbd "C-z") 'undo) ;Emacs default is bound to hide Emacs.
+;;; Turn off beep
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+
+;; Font
+;(set-face-attribute 'default nil  :font "-CTDB-Fira Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+;(add-to-list 'default-frame-alist '(font . "-CTDB-Fira Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"))
+;(add-to-list 'default-frame-alist '(font . "Iosevka" height . 120))
+(set-face-attribute 'default nil  :font "Iosevka"  :height 120)
+
+;; Optional additional aesthetic changes
+;; Adapted from `sanity.el' in Elegant Emacs by Nicolas P. Rougier (rougier)
+;; https://github.com/rougier/elegant-emacs
+
+;; (setq inhibit-startup-screen t)
+;; (setq inhibit-startup-echo-area-message t)
+;; (setq inhibit-startup-message t)
+;; (setq initial-scratch-message nil)
+;; (setq initial-major-mode 'org-mode)
+;; (setq-default indent-tabs-mode nil)
+;; (setq pop-up-windows nil)
+;; (tool-bar-mode 0) 
+;; (tooltip-mode  0)
+;; (scroll-bar-mode 0)
+;;(menu-bar-mode 1) ;menu bar is explicitly turned on for beginners. Change the value to 0.
+
+;; Optional aditional aesthetic changes
+;; Adapted from `elegance.el' in Elegant Emacs by Nicolas P. Rougier (rougier)
+;; https://github.com/rougier/elegant-emacs
+
+;; Line cursor and no blink
+(set-default 'cursor-type  '(bar . 1))
+;;(blink-cursor-mode 0)
+
+;; Line spacing, can be 0 for code and 1 or 2 for text
+;;(setq-default line-spacing 0)
+
+;; Underline line at descent position, not baseline position
+(setq x-underline-at-descent-line t)
+
+;; Rainbow delimiter (parentheses)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+
+;; Wind Move windmove
+(global-set-key (kbd "C-c <left>")  'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>")    'windmove-up)
+(global-set-key (kbd "C-c <down>")  'windmove-down)
+
+;; Other key bindings
+(global-set-key (kbd "s-c")  'calendar)
+
+
+(use-package svg-tag-mode
+  :config
+  (defconst date-re "[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}")
+  (defconst time-re "[0-9]\\{2\\}:[0-9]\\{2\\}")
+  (defconst day-re "[A-Za-z]\\{2\\}")
+  (defconst day-time-re (format "\\(%s\\)? ?\\(%s\\)?" day-re time-re))
+
+  (defun svg-progress-percent (value)
+    (svg-image (svg-lib-concat
+		(svg-lib-progress-bar (/ (string-to-number value) 100.0)
+                                      nil :margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
+		(svg-lib-tag (concat value "%")
+                             nil :stroke 0 :margin 0)) :ascent 'center))
+
+  (defun svg-progress-count (value)
+    (let* ((seq (mapcar #'string-to-number (split-string value "/")))
+           (count (float (car seq)))
+           (total (float (cadr seq))))
+      (svg-image (svg-lib-concat
+		  (svg-lib-progress-bar (/ count total) nil
+					:margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
+		  (svg-lib-tag value nil
+                               :stroke 0 :margin 0)) :ascent 'center)))
+
+  (setq svg-tag-tags
+	`(
+          ;; Org tags
+          (":\\([A-Za-z0-9]+\\)" . ((lambda (tag) (svg-tag-make tag))))
+          (":\\([A-Za-z0-9]+[ \-]\\)" . ((lambda (tag) tag)))
+          
+          ;; Task priority
+          ("\\[#[A-Z]\\]" . ( (lambda (tag)
+				(svg-tag-make tag :face 'org-priority 
+                                              :beg 2 :end -1 :margin 0))))
+
+          ;; Progress
+          ("\\(\\[[0-9]\\{1,3\\}%\\]\\)" . ((lambda (tag)
+                                              (svg-progress-percent (substring tag 1 -2)))))
+          ("\\(\\[[0-9]+/[0-9]+\\]\\)" . ((lambda (tag)
+                                            (svg-progress-count (substring tag 1 -1)))))
+          
+          ;; TODO / DONE
+          ("TODO" . ((lambda (tag) (svg-tag-make "TODO" :face 'org-todo :inverse t :margin 0))))
+          ("DONE" . ((lambda (tag) (svg-tag-make "DONE" :face 'org-done :margin 0))))
+	  
+          ;; Active date (with or without day name, with or without time)
+          (,(format "\\(<%s>\\)" date-re) .
+           ((lambda (tag)
+              (svg-tag-make tag :beg 1 :end -1 :margin 0))))
+          (,(format "\\(<%s \\)%s>" date-re day-time-re) .
+           ((lambda (tag)
+              (svg-tag-make tag :beg 1 :inverse nil :crop-right t :margin 0))))
+          (,(format "<%s \\(%s>\\)" date-re day-time-re) .
+           ((lambda (tag)
+              (svg-tag-make tag :end -1 :inverse t :crop-left t :margin 0))))
+
+          ;; Inactive date  (with or without day name, with or without time)
+          (,(format "\\(\\[%s\\]\\)" date-re) .
+           ((lambda (tag)
+              (svg-tag-make tag :beg 1 :end -1 :margin 0 :face 'org-date))))
+          (,(format "\\(\\[%s \\)%s\\]" date-re day-time-re) .
+           ((lambda (tag)
+              (svg-tag-make tag :beg 1 :inverse nil :crop-right t :margin 0 :face 'org-date))))
+          (,(format "\\[%s \\(%s\\]\\)" date-re day-time-re) .
+           ((lambda (tag)
+              (svg-tag-make tag :end -1 :inverse t :crop-left t :margin 0 :face 'org-date))))))
+  :hook org-mode)
+
+
+;; Dired
+(use-package all-the-icons
+  :ensure t
+  :if (display-graphic-p))
+
+ (use-package dired
+      :hook
+      (dired-mode . dired-hide-details-mode)
+      :config
+      (dired-async-mode 1)
+      (setq dired-listing-switches "-Alh1vD --group-directories-first")
+      (setq wdired-allow-to-change-permissions t)
+      (setq delete-by-moving-to-trash t)
+      :bind (:map dired-mode-map
+		  ("C-c o" . dired-open-file)))
+
+(use-package all-the-icons-dired
+  :ensure t
+  :hook (dired-mode . all-the-icons-dired-mode)
+  :config (setq all-the-icons-dired-monochrome nil))
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :bind (:map dired-mode-map
+	      ("H" . dired-hide-dotfiles-mode)))
+
+;; Vterm
+(use-package vterm
+  :commands vterm
+  :config
+  (setq vterm-max-scrollback 10000)
+  (setq vterm-buffer-name-string "vterm %s"))
+
+(use-package vterm-toggle
+  :bind (("M-t" . vterm-toggle)
+	 ("M-+" . vterm-toggle-show)
+	 :map vterm-mode-map
+	 ("M-t" . vterm-toggle-hide))
+  :config
+  (setq vterm-toggle-fullscreen-p nil)
+  (add-to-list 'display-buffer-alist
+               '((lambda (buffer-or-name _)
+                   (let ((buffer (get-buffer buffer-or-name)))
+                     (with-current-buffer buffer
+                       (or (equal major-mode 'vterm-mode)
+                           (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
+                 (display-buffer-reuse-window display-buffer-at-bottom)
+                 ;;(display-buffer-reuse-window display-buffer-in-direction)
+                 ;;display-buffer-in-direction/direction/dedicated is added in emacs27
+                 ;;(direction . bottom)
+                 ;;(dedicated . t) ;dedicated is supported in emacs27
+                 (reusable-frames . visible)
+                 (window-height . 0.3))))
+
+
+;; Notmuch email
+(use-package notmuch
+  :config
+  (add-to-list 'auto-mode-alist '("alexander@alexanderDesktop" . notmuch-message-mode)))
+
+
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+(require 'quelpa-use-package)
+;;(quelpa '(use-package org-logseq :quelpa (org-logseq :fetcher github :repo "llcc/org-logseq" :files ("*")) :custom (org-logseq-dir "~/Dokumente/Geistliches")))
+
+
+(use-package org-logseq
+    :quelpa (org-logseq :fetcher github :repo "llcc/org-logseq" :files ("*"))
+    :custom (org-logseq-dir "~/Dokumente/Geistliches"))
+(require 'org-logseq)
+
+;; Agda
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
+
+;; Quelpa
+(setq quelpa-upgrade-interval 14)
+(add-hook #'after-init-hook #'quelpa-upgrade-all-maybe)
+;(setq quelpa-update-melpa-p nil)
+;(setq quelpa-checkout-melpa-p nil)
+
+;; Julia Language Server
+;(quelpa '(lsp-julia :fetcher github
+;                    :repo "non-Jedi/lsp-julia"
+;                    :files (:defaults "languageserver")))
+(require 'lsp-julia)
+(require 'lsp-mode)
+(require 'lsp-ui)
+(add-hook 'julia-mode-hook #'lsp)
+(add-hook 'julia-mode-hook #'lsp-mode)
+
+
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(put 'dired-find-alternate-file 'disabled nil)

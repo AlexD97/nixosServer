@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
 
   boot.initrd.kernelModules = [ "i915" ];
 
