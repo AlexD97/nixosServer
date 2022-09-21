@@ -30,6 +30,7 @@
     ],
     "modules-right": [
         "tray",
+        "pulseaudio",
         "battery",
         "clock#date",
         "clock#time"
@@ -95,24 +96,25 @@
         "tooltip-format": "{ifname}: {ipaddr}"
     },
 
-    //"pulseaudio": {
+    "pulseaudio": {
     //    //"scroll-step": 1,
-    //    "format": "{icon}  {volume}%",
-    //    "format-bluetooth": "{icon}  {volume}%",
-    //    "format-muted": "",
-    //    "format-icons": {
-    //        "headphones": "",
-    //        "handsfree": "",
-    //        "headset": "",
-    //        "phone": "",
-    //        "portable": "",
-    //        "car": "",
-    //        "default": ["", ""]
-    //    },
-    //    "on-click": "pavucontrol"
-    //},
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "{icon}  {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
 
     "temperature": {
+      "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
       "critical-threshold": 80,
       "interval": 5,
       "format": "{icon}  {temperatureC}°C",

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   user = "alexander";
 in
@@ -10,6 +10,8 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./framework_laptop.nix
+      ./syncthing.nix
     ];
 
   # Bootloader.
@@ -26,8 +28,6 @@ in
   boot.initrd.luks.devices."luks-daacb8ec-48e8-4f8a-bb18-8a541c3c2824".device = "/dev/disk/by-uuid/daacb8ec-48e8-4f8a-bb18-8a541c3c2824";
   boot.initrd.luks.devices."luks-daacb8ec-48e8-4f8a-bb18-8a541c3c2824".keyFile = "/crypto_keyfile.bin";
 
-  # boot.kernelParams = [ "nomodeset" ];
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -39,6 +39,7 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
+  programs.nm-applet.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -54,12 +55,27 @@ in
   # services.xserver.desktopManager.plasma5.enable = true;
   # services.xserver.displayManager.sddm.settings.Wayland.SessionDir = "${pkgs.plasma5Packages.plasma-workspace}/share/wayland-sessions";
   # services.xserver.desktopManager.plasma5.runUsingSystemd = true;
+  services.xserver.displayManager.lightdm.enable = false;
 
   # Configure keymap in X11
   services.xserver = {
     layout = "de";
     xkbVariant = "neo";
   };
+
+  services.xserver.desktopManager.session = [
+    { #manage = "desktop";
+      name = "newm";
+      #start = ''
+      #  systemctl --user import-environment PATH
+      #  dbus-update-activation-environment --systemd PATH
+      #  systemctl --user start newm.service
+      #'';
+      start = ''
+        ${pkgs.stdenv.shell} ${pkgs.newm}/bin/start-newm & waitPID=$!
+      '';
+    }
+  ];
 
   # Configure console keymap
   console.keyMap = "de";
@@ -84,11 +100,31 @@ in
     #media-session.enable = true;
   };
 
+  # Screen share on wlroots
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+      ];
+    };
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
   # Bluetooth
   hardware.bluetooth.enable = true;
+
+  # Brightness control
+  hardware.acpilight.enable = true;
+
+  environment.variables = {
+    QT_QPA_PLATFORM="wayland-egl";
+  };
+
+  # SSD trim
+  services.fstrim.enable = lib.mkDefault true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
@@ -110,11 +146,23 @@ in
   environment.systemPackages = with pkgs; [
     wayland
     xwayland
+    qt5.qtwayland
     git
     brightnessctl
+    pulseaudio
+    wget
+    gnupg
+    pass
+    htop
+    udisks
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
   ];
+
+  # kdeconnect
+  # programs.kdeconnect.enable = true;
+
+  # Android MTP mount
+  services.gvfs.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -133,7 +181,18 @@ in
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = "experimental-features = nix-command flakes";
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekyl";
+    options = "--delete-older-than 30d";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -142,10 +201,5 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
-
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes";
-  };
 
 }

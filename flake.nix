@@ -13,9 +13,11 @@
     pywm-fullscreenpkg.url = "github:jbuchermn/pywm-fullscreen";
     pywm-fullscreenpkg.inputs.nixpkgs.follows = "nixpkgs";
 
+    vscode-marketplace.url = "github:ameertaweel/nix-vscode-marketplace";
+
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, newmpkg, pywm-fullscreenpkg, ... }:
+  outputs = { self, nixpkgs, home-manager, nur, newmpkg, pywm-fullscreenpkg, vscode-marketplace, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -34,17 +36,17 @@
     in {
       nixosConfigurations = {
         alexander = lib.nixosSystem {
-          inherit system;
+          inherit system pkgs;
           modules = [ 
-           ./configuration.nix 
+           ./configuration.nix
            home-manager.nixosModules.home-manager {
-             #home-manager.useGlobalPkgs = true;
+             home-manager.useGlobalPkgs = true;
              home-manager.useUserPackages = true;
              home-manager.users.alexander = {
                imports = [ ./home.nix ];
              };
              home-manager.extraSpecialArgs = {
-               inherit pkgs;
+               inherit pkgs vscode-marketplace system;
              };
            }
           ];

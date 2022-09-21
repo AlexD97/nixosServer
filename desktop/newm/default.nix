@@ -1,6 +1,12 @@
 input@{ config, pkgs, ... }:
 let 
   confFile = builtins.readFile ./config.py;
+
+  systemd-newm = pkgs.writeShellScriptBin "systemd-newm" ''
+    systemctl --user import-environment PATH
+    dbus-update-activation-environment --systemd PATH
+    systemctl --user start newm.service
+  '';
 in
 {
   xdg.configFile."newm/config.py".text = confFile;
@@ -32,6 +38,7 @@ in
 
   home.packages = with pkgs; [
     newm
+    systemd-newm
     waybar
     wob
     rofi-wayland
@@ -44,9 +51,31 @@ in
     slurp
 
     gnome.nautilus
+    gnome.adwaita-icon-theme
 
     sway
   ];
 
   home.file."wallpaper.jpg".source = ./wallpaper.jpg;
+
+  systemd.user.services.newm = {
+    Unit = {
+      Description = "Newm - Wayland window manager";
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
+      # We explicitly unset PATH here, as we want it to be set by
+      # systemctl --user import-environment in startsway
+      # environment.PATH = lib.mkForce null;
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = ''
+        ${pkgs.newm}/bin/start-newm
+      '';
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
 }

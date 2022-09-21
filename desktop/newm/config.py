@@ -16,15 +16,23 @@ from pywm import (
 from newm.helper import BacklightManager, WobRunner, PaCtl
 
 def on_startup():
-    os.system("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots")
+    #os.system("dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots QT_QPA_PLATFORM=wayland-egl")
+    os.system("systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots QT_QPA_PLATFORM=wayland-egl")
+    os.system("hash dbus-update-activation-environment 2>/dev/null && \
+        dbus-update-activation-environment --systemd DISPLAY \
+        WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots QT_QPA_PLATFORM=wayland-egl")
+    os.system("systemctl --user restart kdeconnect.service")
+    os.system("systemctl --user restart kdeconnect-indicator.service")
+    os.system("systemctl --user restart syncthingtray.service")
 
 def on_reconfigure():
     os.system("notify-send newm \"Reloaded config\" &")
 
-corner_radius = 20.5
+corner_radius = 0.0
+#corner_radius = 20.5
 
 outputs = [
-    { 'name': 'eDP-1', 'pos_x': 0, 'pos_y': 0, 'scale': 2. }, #2560/1600 },
+    { 'name': 'eDP-1', 'width': 2256, 'height': 1504, 'pos_x': 0, 'pos_y': 0, 'scale': 1. }, # },
     { 'name': 'virt-1', 'pos_x': 1280, 'pos_y': 0, 'width': 1280, 'height': 720, 'scale': 1., 
         'mHz': 30000, 'anim': False},
     { 'name': 'HDMI-A-2', 'pos_x': 2560, 'width': 3840, 'height': 2160, 'scale': 2.,
@@ -33,9 +41,10 @@ outputs = [
 
 pywm = {
     # 'xkb_model': "macintosh",
-    'xkb_model': "de-latin1",
-    'xkb_layout': "de,de",
-    'xkb_options': "caps:escape",
+    'xkb_model': "pc105",
+    'xkb_layout': "de",
+    'xkb_variant': "neo",
+    #'xkb_options': "caps:escape",
 
     'xcursor_theme': 'Adwaita',
     'xcursor_size': 24,
@@ -92,7 +101,8 @@ anim_time = .25
 blend_time = .5
 
 wob_runner = WobRunner("wob -a bottom -M 100")
-backlight_manager = BacklightManager(anim_time=1., bar_display=wob_runner)
+#backlight_manager = BacklightManager(anim_time=1., bar_display=wob_runner)
+backlight_manager = BacklightManager(args="--device=intel_backlight", anim_time=1.)
 kbdlight_manager = BacklightManager(args="--device='*::kbd_backlight'", anim_time=1., bar_display=wob_runner)
 def synchronous_update() -> None:
     backlight_manager.update()
