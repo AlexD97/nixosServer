@@ -15,7 +15,7 @@
 ;(load-theme 'atom-one-light t)
 (load-theme 'one-light t)
 
-(load "~/.emacs.d/plugins/htmlize.el")
+;(load "~/.emacs.d/plugins/htmlize.el")
 (require 'htmlize)
 
 (setq-default TeX-engine 'xetex)
@@ -33,12 +33,12 @@
 (add-to-list 'org-latex-packages-alist
              '("AUTO" "babel" t ("pdflatex" "xelatex")))
 
-(load "~/.emacs.d/calendar/org-caldav")
-(require 'org-caldav)
-(setq org-caldav-url "http://omvnas:5232/alexander")
-(setq org-caldav-calendar-id "66b63628-b368-6e00-a031-d18ae03f77f9")
-(setq org-caldav-inbox "~/Dokumente/Notizen/Caldav_Inbox.org")
-(setq org-caldav-files org-agenda-files)
+;(load "~/.emacs.d/calendar/org-caldav")
+;(require 'org-caldav)
+;(setq org-caldav-url "http://omvnas:5232/alexander")
+;(setq org-caldav-calendar-id "66b63628-b368-6e00-a031-d18ae03f77f9")
+;(setq org-caldav-inbox "~/Dokumente/Notizen/Caldav_Inbox.org")
+;(setq org-caldav-files org-agenda-files)
 
 (setq org-support-shift-select 'always)
 ;(add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -146,7 +146,7 @@
 (setq org-preview-latex-default-process 'dvisvgm)
 
 
-(load "~/.emacs.d/plugins/org-bullets.el")
+;(load "~/.emacs.d/plugins/org-bullets.el")
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
@@ -438,10 +438,10 @@
 ;;(quelpa '(use-package org-logseq :quelpa (org-logseq :fetcher github :repo "llcc/org-logseq" :files ("*")) :custom (org-logseq-dir "~/Dokumente/Geistliches")))
 
 
-(use-package org-logseq
-    :quelpa (org-logseq :fetcher github :repo "llcc/org-logseq" :files ("*"))
-    :custom (org-logseq-dir "~/Dokumente/Geistliches"))
-(require 'org-logseq)
+;(use-package org-logseq
+;    :quelpa (org-logseq :fetcher github :repo "llcc/org-logseq" :files ("*"))
+;    :custom (org-logseq-dir "~/Dokumente/Geistliches"))
+;(require 'org-logseq)
 
 ;; Agda
 (load-file (let ((coding-system-for-read 'utf-8))
@@ -457,11 +457,11 @@
 ;(quelpa '(lsp-julia :fetcher github
 ;                    :repo "non-Jedi/lsp-julia"
 ;                    :files (:defaults "languageserver")))
-(require 'lsp-julia)
-(require 'lsp-mode)
-(require 'lsp-ui)
-(add-hook 'julia-mode-hook #'lsp)
-(add-hook 'julia-mode-hook #'lsp-mode)
+;(require 'lsp-julia)
+;(require 'lsp-mode)
+;(require 'lsp-ui)
+;(add-hook 'julia-mode-hook #'lsp)
+;(add-hook 'julia-mode-hook #'lsp-mode)
 
 
 

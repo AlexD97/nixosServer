@@ -30,10 +30,18 @@ inputs@{ config, pkgs, lib, ... }:
 
   home.packages = with pkgs; [
     alacritty
-    emacs
+    #emacs
     vlc
+    anki
     syncthingtray
     warpd
+    sqlite
+    ripgrep-all
+    emacs-all-the-icons-fonts
+    pinentry-gnome
+    
+    isync
+    notmuch
 
     udiskie
     jmtpfs
@@ -42,6 +50,8 @@ inputs@{ config, pkgs, lib, ... }:
     pavucontrol
 
     julia-bin
+    ghc
+    agda
     
     (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" ]; })
 
