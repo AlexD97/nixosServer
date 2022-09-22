@@ -427,7 +427,7 @@
 ;; Notmuch email
 (use-package notmuch
   :config
-  (add-to-list 'auto-mode-alist '("alexander@alexanderDesktop" . notmuch-message-mode)))
+  (add-to-list 'auto-mode-alist '("alexding97@gmail.com" . notmuch-message-mode)))
 
 
 (quelpa

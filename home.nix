@@ -22,6 +22,7 @@ inputs@{ config, pkgs, lib, ... }:
   imports = [
     ./desktop/newm
     ./desktop/emacs
+    ./desktop/email
   ];
 
   home.sessionVariables = { QT_QPA_PLATFORM="wayland-egl"; };
@@ -39,6 +40,7 @@ inputs@{ config, pkgs, lib, ... }:
     ripgrep-all
     emacs-all-the-icons-fonts
     pinentry-gnome
+    imagemagick
     
     isync
     notmuch

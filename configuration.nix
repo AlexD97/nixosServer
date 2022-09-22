@@ -12,6 +12,7 @@ in
       ./hardware-configuration.nix
       ./framework_laptop.nix
       ./syncthing.nix
+      ./desktop/borgbackup
     ];
 
   # Bootloader.
