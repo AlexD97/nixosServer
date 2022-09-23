@@ -47,13 +47,26 @@
     notify-borgbackup-failure = {
       enable = true;
       serviceConfig.User = "alexander";
+      environment = {
+        DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus";
+      };
       script = ''
-        export $(${pkgs.dbus}/bin/dbus-launch)
         ${pkgs.libnotify}/bin/notify-send -u critical "Borgbackup failed!" "Check journalctl logs"
+      '';
+    };
+    notify-borgbackup-success = {
+      enable = true;
+      serviceConfig.User = "alexander";
+      environment = {
+        DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus";
+      };
+      script = ''
+        ${pkgs.libnotify}/bin/notify-send "Borgbackup successful"
       '';
     };
     borgbackup-job-homeBackup = {
       unitConfig.OnFailure = "notify-borgbackup-failure.service";
+      unitConfig.OnSuccess = "notify-borgbackup-success.service";
       preStart = lib.mkBefore ''
         # waiting for internet after resume-from-suspend
         until /run/wrappers/bin/ping google.com -c1 -q >/dev/null; do :; done

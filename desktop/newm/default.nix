@@ -43,7 +43,8 @@ in
     wob
     rofi-wayland
     #mako
-    deadd-notification-center
+    #deadd-notification-center
+    dunst
     libnotify
 
     pywm-fullscreen
@@ -56,6 +57,9 @@ in
 
     sway
   ];
+
+  services.dunst.enable = true;
+  services.dunst.waylandDisplay = "wayland-0";
 
   home.file."wallpaper.jpg".source = ./wallpaper.jpg;
 
@@ -80,7 +84,7 @@ in
     };
   };
 
-  systemd.user.services.deadd-notification-center = {
+  /*systemd.user.services.deadd-notification-center = {
     Unit = {
       Description = "Deadd Notification Center";
       PartOf = [ "graphical-session.target" ];
@@ -97,5 +101,5 @@ in
   };
 
   xdg.configFile."deadd/deadd.conf".source = ./deadd/deadd.conf;
-  xdg.configFile."deadd/deadd.css".source = ./deadd/style.css;
+  xdg.configFile."deadd/deadd.css".source = ./deadd/style.css;*/
 }
