@@ -42,7 +42,8 @@ in
     waybar
     wob
     rofi-wayland
-    mako
+    #mako
+    deadd-notification-center
     libnotify
 
     pywm-fullscreen
@@ -78,4 +79,23 @@ in
       TimeoutStopSec = 10;
     };
   };
+
+  systemd.user.services.deadd-notification-center = {
+    Unit = {
+      Description = "Deadd Notification Center";
+      PartOf = [ "graphical-session.target" ];
+      #X-Restart-Triggers = [ "${config.xdg.configFile."deadd/deadd.conf".source}" ];
+    };
+    Service = {
+      Type = "dbus";
+      BusName = "org.freedesktop.Notifications";
+      ExecStart = "${pkgs.deadd-notification-center}/bin/deadd-notification-center";
+      Restart = "always";
+      RestartSec = "1sec";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
+  xdg.configFile."deadd/deadd.conf".source = ./deadd/deadd.conf;
+  xdg.configFile."deadd/deadd.css".source = ./deadd/style.css;
 }

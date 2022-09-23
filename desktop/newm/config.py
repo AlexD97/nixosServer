@@ -137,7 +137,7 @@ key_bindings = lambda layout: [
 
     (mod+"-Return", lambda: os.system("alacritty &")),
     (mod+"-e", lambda: os.system("emacsclient -c -a \"emacs\" &")),
-    (mod+"-c", lambda: os.system("chromium --enable-features=UseOzonePlatform --ozone-platform=wayland &")),
+    (mod+"-c", lambda: os.system("cOZ_ENABLE_WAYLAND=1 firefox &")),
     (mod+"-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
     (mod+"-q", lambda: layout.close_view()),
 

@@ -1,5 +1,5 @@
 {pkgs, lib, config, ...} : {
-  services.borgbackup.jobs =
+  config.services.borgbackup.jobs =
     let common-excludes = [
           # Largest cache dirs
           ".cache"
@@ -30,11 +30,13 @@
           "*/venv"
           "*/.venv"
         ];
+        homePath = "/home/alexander";
   in {
-    homeBackup = {
-      paths = "${config.home.homeDirectory}";
+    homeBackup = rec {
+      paths = "${homePath}";
       encryption.mode = "none";
-      environment.BORG_RSH = "ssh -i ${config.home.homeDirectory}/.ssh/id_rsa";
+      environment.BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -i ${homePath}/.ssh/id_rsa";
+      environment.BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
       repo = "ssh://alexander@omvNAS/sharedfolders/Backups/NixosLaptopBackup";
       exclude = map (x: paths + "/" + x) common-excludes;
       startAt = "*-*-01/2 00:00:00";
@@ -46,7 +48,8 @@
       enable = true;
       serviceConfig.User = "alexander";
       script = ''
-        ${pkgs.libnotify}/bin/notify-send -u critical "Borgbackup failed!" "Check logs"
+        export $(${pkgs.dbus}/bin/dbus-launch)
+        ${pkgs.libnotify}/bin/notify-send -u critical "Borgbackup failed!" "Check journalctl logs"
       '';
     };
     borgbackup-job-homeBackup = {
@@ -55,7 +58,10 @@
         # waiting for internet after resume-from-suspend
         until /run/wrappers/bin/ping google.com -c1 -q >/dev/null; do :; done
       '';
-      timerConfig.Persistent.true;
+      #timerConfig.Persistent = true;
     };
+  };
+  config.systemd.timers = {
+    borgbackup-job-homeBackup.timerConfig.Persistent = lib.mkOverride 0 true;
   };
 }

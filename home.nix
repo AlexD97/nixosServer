@@ -41,6 +41,7 @@ inputs@{ config, pkgs, lib, ... }:
     emacs-all-the-icons-fonts
     pinentry-gnome
     imagemagick
+    jq
     
     isync
     notmuch
