@@ -39,7 +39,9 @@ import pathlib
 import sys
 from threading import main_thread
 
-import cache
+sys.path.append('/home/alexander/.config/eww/scripts')
+
+#import cache
 import handlers
 import subprocess
 import utils
@@ -146,6 +148,6 @@ if __name__ == "__main__":
                     utils.file_add_line(CACHE_PATH, saved_path, HISTORY_LIMIT)
 
             # start eavesdropping on the org.freedesktop.Notifications interface and log the notification info
-            cache.Eavesdropper(master_callback, CACHE_DIR).eavesdrop()
+            #cache.Eavesdropper(master_callback, CACHE_DIR).eavesdrop()
 
 # vim:filetype=python

@@ -58,6 +58,11 @@ inputs@{ config, pkgs, lib, ... }:
     julia-bin
     ghc
     agda
+
+    python310Packages.dbus-python
+    python310Packages.Wand
+    python310Packages.gst-python
+    python310Packages.requests
     
     (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" ]; })
 
