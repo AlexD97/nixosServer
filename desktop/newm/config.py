@@ -37,7 +37,8 @@ outputs = [
     { 'name': 'virt-1', 'pos_x': 1280, 'pos_y': 0, 'width': 1280, 'height': 720, 'scale': 1., 
         'mHz': 30000, 'anim': False},
     { 'name': 'HDMI-A-2', 'pos_x': 2560, 'width': 3840, 'height': 2160, 'scale': 2.,
-        'mHz': 30000}
+        'mHz': 30000},
+    { 'name': 'DP-2', 'pos_x': 0, 'pos_y': -1050 }
 ]
 
 pywm = {

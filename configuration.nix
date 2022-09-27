@@ -178,6 +178,19 @@ in
   #   enableSSHSupport = true;
    };
 
+  # Battery life / tlp
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_BOOST_ON_BAT = 0;
+      CPU_SCALING_GOVERNOR_ON_BATTERY = "powersave";
+      START_CHARGE_THRESH_BAT0 = 80;
+      STOP_CHARGE_THRESH_BAT0 = 85;
+      RUNTIME_PM_ON_BAT = "auto";
+      #USB_AUTOSUSPEND=1;
+    };
+  };
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
