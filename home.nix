@@ -51,7 +51,9 @@ inputs@{ config, pkgs, lib, ... }:
 
     libappindicator
     pavucontrol
+    eww
 
+    python
     julia-bin
     ghc
     agda
