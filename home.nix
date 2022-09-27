@@ -23,6 +23,7 @@ inputs@{ config, pkgs, lib, ... }:
     ./desktop/newm
     ./desktop/emacs
     ./desktop/email
+    ./desktop/newm/dunst/dunst.nix
   ];
 
   home.sessionVariables = { QT_QPA_PLATFORM="wayland-egl"; };
@@ -53,7 +54,7 @@ inputs@{ config, pkgs, lib, ... }:
     pavucontrol
     eww
 
-    python
+    python3
     julia-bin
     ghc
     agda
