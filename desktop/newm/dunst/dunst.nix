@@ -9,6 +9,7 @@
     };
   };
   xdg.configFile."eww/scripts/logger.py".source = ./logger.py;
+  xdg.configFile."eww/scripts/cache.py".source = ./cache.py;
   xdg.configFile."eww/notifications/eww.scss".source = ./eww.scss;
   xdg.configFile."eww/notifications/eww.yuck".source = ./eww.yuck;
   xdg.configFile."eww/eww.scss".source = ./global_eww.scss;

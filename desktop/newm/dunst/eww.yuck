@@ -1,6 +1,6 @@
 ;; Variables
-(defpoll notifications_stats :interval "5s" "scripts/logger.py stats")
-(deflisten notifications_sub "scripts/logger.py subscribe")
+(defpoll notifications_stats :interval "5s" "python scripts/logger.py stats")
+(deflisten notifications_sub "python scripts/logger.py subscribe")
 (defpoll notifications_dnd_state :interval "1s" "dunstctl is-paused")
 (defpoll dunst_displayed :interval "10s" "dunstctl count displayed")
 (defpoll dunst_history :interval "10s" "dunstctl count history")

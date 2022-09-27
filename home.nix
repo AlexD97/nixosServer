@@ -52,7 +52,7 @@ inputs@{ config, pkgs, lib, ... }:
 
     libappindicator
     pavucontrol
-    eww
+    eww-wayland
 
     python3
     julia-bin
