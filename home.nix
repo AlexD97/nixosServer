@@ -1,5 +1,12 @@
 inputs@{ config, pkgs, lib, ... }:
 
+let
+  my-python-packages = python-packages: with python-packages; [
+    # other python packages you want
+  ];
+  python-with-my-packages = pkgs.python3.withPackages my-python-packages;
+in
+
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -23,7 +30,7 @@ inputs@{ config, pkgs, lib, ... }:
     ./desktop/newm
     ./desktop/emacs
     ./desktop/email
-    ./desktop/newm/dunst/dunst.nix
+    ./desktop/eww
   ];
 
   home.sessionVariables = { QT_QPA_PLATFORM="wayland-egl"; };
@@ -39,7 +46,6 @@ inputs@{ config, pkgs, lib, ... }:
     warpd
     sqlite
     ripgrep-all
-    emacs-all-the-icons-fonts
     pinentry-gnome
     imagemagick
     jq
@@ -47,23 +53,24 @@ inputs@{ config, pkgs, lib, ... }:
     isync
     notmuch
 
+    libappindicator
+
     udiskie
     jmtpfs
 
-    libappindicator
-    pavucontrol
-    eww-wayland
-
-    python3
+    #python3
+    python-with-my-packages
     julia-bin
     ghc
     agda
 
-    python310Packages.dbus-python
-    python310Packages.Wand
-    python310Packages.gst-python
-    python310Packages.requests
-    
+    zsh
+    moreutils
+    bc
+    recode
+
+    emacs-all-the-icons-fonts
+    material-design-icons
     (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" ]; })
 
     texlive.combined.scheme-full

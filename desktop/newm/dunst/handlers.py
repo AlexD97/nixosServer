@@ -27,6 +27,7 @@ of the items on the format string with the passed attributes and then return it.
 # <https://github.com/dharmx/vile/blob/main/LICENSE.txt>
 
 import datetime
+import sys, os
 
 sys.path.append('/home/alexander/.config/eww/scripts')
 import cache

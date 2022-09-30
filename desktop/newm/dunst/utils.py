@@ -37,8 +37,8 @@ import dbus
 import gi
 
 # supress GIO warnings
-gi.require_version("Gtk", "3.0")
-gi.require_version("GdkPixbuf", "2.0")
+#gi.require_version("Gtk", "3.0")
+#gi.require_version("GdkPixbuf", "2.0")
 
 import requests
 from gi.repository import GdkPixbuf, Gio, GLib, Gtk

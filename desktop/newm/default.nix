@@ -53,7 +53,13 @@ in
     slurp
 
     gnome.nautilus
+    gnome.evolution
     gnome.adwaita-icon-theme
+
+    thunar
+
+    pavucontrol
+    eww-wayland
 
     sway
   ];
@@ -81,6 +87,17 @@ in
       Restart = "on-failure";
       RestartSec = 1;
       TimeoutStopSec = 10;
+    };
+  };
+
+  # dunst
+  services.dunst.settings = {
+    global = {
+      follow = "mouse";
+    };
+    logger = {
+      summary = "*";
+      script = "/home/alexander/.config/eww/Control-Center/scripts/logger.zsh";
     };
   };
 

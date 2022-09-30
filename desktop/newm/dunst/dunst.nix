@@ -5,7 +5,7 @@
     };
     logger = {
       summary = "*";
-      script = "/home/alexander/.config/eww/scripts/logger.py";
+      script = "/home/alexander/.config/eww/Control-Center/scripts/logger.zsh";
     };
   };
   xdg.configFile."eww/scripts/logger.py".source = ./logger.py;
