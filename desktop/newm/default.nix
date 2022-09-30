@@ -53,10 +53,9 @@ in
     slurp
 
     gnome.nautilus
-    gnome.evolution
+    evolution
     gnome.adwaita-icon-theme
-
-    thunar
+    xfce.thunar
 
     pavucontrol
     eww-wayland
