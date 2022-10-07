@@ -107,29 +107,30 @@ blend_time = .5
 wob_runner = WobRunner("wob -a bottom -M 100")
 #backlight_manager = BacklightManager(anim_time=1., bar_display=wob_runner)
 backlight_manager = BacklightManager(args="--device=intel_backlight", anim_time=1.)
-kbdlight_manager = BacklightManager(args="--device='*::kbd_backlight'", anim_time=1., bar_display=wob_runner)
+#kbdlight_manager = BacklightManager(args="--device='*::kbd_backlight'", anim_time=1., bar_display=wob_runner)
 def synchronous_update() -> None:
     backlight_manager.update()
-    kbdlight_manager.update()
+    return
+    #kbdlight_manager.update()
 
 pactl = PaCtl(0, wob_runner)
 
 key_bindings = lambda layout: [
-    (mod+"-h", lambda: layout.move(-1, 0)),
-    (mod+"-j", lambda: layout.move(0, 1)),
-    (mod+"-k", lambda: layout.move(0, -1)),
-    (mod+"-l", lambda: layout.move(1, 0)),
-    (mod+"-t", lambda: layout.move_in_stack(1)),
+    (mod+"-n", lambda: layout.move(-1, 0)),
+    (mod+"-r", lambda: layout.move(0, 1)),
+    (mod+"-g", lambda: layout.move(0, -1)),
+    (mod+"-t", lambda: layout.move(1, 0)),
+    (mod+"-s", lambda: layout.move_in_stack(1)),
 
-    (mod+"-H", lambda: layout.move_focused_view(-1, 0)),
-    (mod+"-J", lambda: layout.move_focused_view(0, 1)),
-    (mod+"-K", lambda: layout.move_focused_view(0, -1)),
-    (mod+"-L", lambda: layout.move_focused_view(1, 0)),
+    (mod+"-N", lambda: layout.move_focused_view(-1, 0)),
+    (mod+"-R", lambda: layout.move_focused_view(0, 1)),
+    (mod+"-G", lambda: layout.move_focused_view(0, -1)),
+    (mod+"-T", lambda: layout.move_focused_view(1, 0)),
 
-    (mod+"-C-h", lambda: layout.resize_focused_view(-1, 0)),
-    (mod+"-C-j", lambda: layout.resize_focused_view(0, 1)),
-    (mod+"-C-k", lambda: layout.resize_focused_view(0, -1)),
-    (mod+"-C-l", lambda: layout.resize_focused_view(1, 0)),
+    (mod+"-C-n", lambda: layout.resize_focused_view(-1, 0)),
+    (mod+"-C-r", lambda: layout.resize_focused_view(0, 1)),
+    (mod+"-C-g", lambda: layout.resize_focused_view(0, -1)),
+    (mod+"-C-t", lambda: layout.resize_focused_view(1, 0)),
 
     (mod+"-v", lambda: layout.toggle_focused_view_floating()),
     (mod+"-w", lambda: layout.change_focused_view_workspace()),
@@ -138,7 +139,7 @@ key_bindings = lambda layout: [
 
     (mod+"-Return", lambda: os.system("alacritty &")),
     (mod+"-e", lambda: os.system("emacsclient -c -a \"emacs\" &")),
-    (mod+"-c", lambda: os.system("cOZ_ENABLE_WAYLAND=1 firefox &")),
+    (mod+"-b", lambda: os.system("cOZ_ENABLE_WAYLAND=1 firefox &")),
     (mod+"-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
     (mod+"-q", lambda: layout.close_view()),
 
@@ -146,15 +147,15 @@ key_bindings = lambda layout: [
     (mod+"-P", lambda: layout.terminate()),
     (mod+"-C", lambda: layout.update_config()),
 
-    (mod+"-r", lambda: os.system("rofi -show run &")),
+    (mod+"-a", lambda: os.system("rofi -show run &")),
     (mod+"-f", lambda: layout.toggle_fullscreen()),
 
     (mod+"-", lambda: layout.toggle_overview(only_active_workspace=False)),
 
-    ("XF86MonBrightnessUp", lambda: backlight_manager.set(backlight_manager.get() + 0.1)),
-    ("XF86MonBrightnessDown", lambda: backlight_manager.set(backlight_manager.get() - 0.1)),
-    ("XF86KbdBrightnessUp", lambda: kbdlight_manager.set(kbdlight_manager.get() + 0.1)),
-    ("XF86KbdBrightnessDown", lambda: kbdlight_manager.set(kbdlight_manager.get() - 0.1)),
+    ("XF86MonBrightnessUp", lambda: backlight_manager.set(backlight_manager.get() + 0.05)),
+    ("XF86MonBrightnessDown", lambda: backlight_manager.set(backlight_manager.get() - 0.05)),
+    #("XF86KbdBrightnessUp", lambda: kbdlight_manager.set(kbdlight_manager.get() + 0.1)),
+    #("XF86KbdBrightnessDown", lambda: kbdlight_manager.set(kbdlight_manager.get() - 0.1)),
     ("XF86AudioRaiseVolume", lambda: pactl.volume_adj(5)),
     ("XF86AudioLowerVolume", lambda: pactl.volume_adj(-5)),
     ("XF86AudioMute", lambda: pactl.mute()),

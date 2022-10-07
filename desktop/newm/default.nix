@@ -51,8 +51,10 @@ in
 
     grim
     slurp
+    wdisplays
 
     gnome.nautilus
+    dconf
     evolution
     gnome.adwaita-icon-theme
     xfce.thunar
@@ -62,6 +64,7 @@ in
 
     sway
   ];
+
 
   services.dunst.enable = true;
   services.dunst.waylandDisplay = "wayland-0";

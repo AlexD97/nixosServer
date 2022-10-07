@@ -40,6 +40,7 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
+  #networking.networkmanager.wifi.scanRandMacAddress = false;
   programs.nm-applet.enable = true;
 
   # Set your time zone.
@@ -59,7 +60,7 @@ in
   services.xserver.displayManager.lightdm.enable = false;
 
   # Configure keymap in X11
-  services.xserver = {
+   services.xserver = {
     layout = "de";
     xkbVariant = "neo";
   };
@@ -83,6 +84,11 @@ in
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
+  services.avahi.enable = true;
+  # Important to resolve .local domains of printers, otherwise you get an error
+  # like  "Impossible to connect to XXX.local: Name or service not known"
+  services.avahi.nssmdns = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -159,6 +165,7 @@ in
     gnupg
     pinentry
     pass
+    pass-secret-service
     htop
     udisks
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
