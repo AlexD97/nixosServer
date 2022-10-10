@@ -126,6 +126,9 @@ in
   # Brightness control
   hardware.acpilight.enable = true;
 
+  # Thunderbolt
+  services.hardware.bolt.enable = true;
+
   environment.variables = {
     QT_QPA_PLATFORM="wayland-egl";
   };
@@ -146,6 +149,7 @@ in
       kate
     #  thunderbird
     ];
+    shell = pkgs.zsh;
   };
 
   # Allow unfree packages
@@ -168,6 +172,7 @@ in
     pass-secret-service
     htop
     udisks
+    pciutils
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   ];
 

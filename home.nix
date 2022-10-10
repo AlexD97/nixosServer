@@ -65,6 +65,7 @@ in
     agda
 
     zsh
+    fzf
     moreutils
     bc
     recode
