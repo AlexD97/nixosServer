@@ -15,7 +15,7 @@ let
         echo "opening $file" &&
         xdg-open "$file"
       }
-    ''
+    '';
 in {
   programs.zsh = {
     enable = true;

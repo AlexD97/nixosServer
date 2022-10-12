@@ -31,6 +31,7 @@ in
     ./desktop/emacs
     ./desktop/email
     ./desktop/eww
+    ./zsh.nix
   ];
 
   home.sessionVariables = { QT_QPA_PLATFORM="wayland-egl"; };
@@ -49,6 +50,11 @@ in
     pinentry-gnome
     imagemagick
     jq
+
+    libreoffice-fresh
+    hunspellDicts.de_DE
+    aspell
+    aspellDicts.de
     
     isync
     notmuch
