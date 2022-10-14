@@ -190,6 +190,11 @@ in
   #   enableSSHSupport = true;
    };
 
+   programs.evolution = {
+    enable = true;
+    #plugins = [ pkgs.evolution-ews ];
+  };
+
   # Battery life / tlp
   services.tlp = {
     enable = true;
@@ -215,7 +220,7 @@ in
   networking.firewall.enable = false;
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
   };
 

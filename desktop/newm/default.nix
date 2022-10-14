@@ -55,7 +55,8 @@ in
 
     gnome.nautilus
     dconf
-    evolution
+    #evolution
+    #evolution-ews
     gnome.adwaita-icon-theme
     xfce.thunar
 

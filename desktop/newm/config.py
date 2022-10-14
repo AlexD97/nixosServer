@@ -36,9 +36,12 @@ outputs = [
     { 'name': 'eDP-1', 'width': 2256, 'height': 1504, 'pos_x': 0, 'pos_y': 0, 'scale': 1. }, # },
     { 'name': 'virt-1', 'pos_x': 1280, 'pos_y': 0, 'width': 1280, 'height': 720, 'scale': 1., 
         'mHz': 30000, 'anim': False},
-    { 'name': 'HDMI-A-2', 'pos_x': 2560, 'width': 3840, 'height': 2160, 'scale': 2.,
-        'mHz': 30000},
-    { 'name': 'DP-2', 'pos_x': 0, 'pos_y': -1050 }
+    { 'name': 'DP-5', 'pos_x': 0, 'pos_y': -1050 },
+    { 'name': 'DP-6', 'pos_x': -2760, 'pos_y': -1920, 'transform': PYWM_TRANSFORM_90 },
+    { 'name': 'DP-7', 'pos_x': -1680, 'pos_y': -1050 },
+    # Büro
+    { 'name': 'DP-2', 'pos_x': 0, 'pos_y': -1920, 'transform': PYWM_TRANSFORM_90 },
+    { 'name': 'DP-1', 'pos_x': 1128, 'pos_y': -1440 }
 ]
 
 pywm = {
@@ -138,8 +141,8 @@ key_bindings = lambda layout: [
     (mod+"-S", lambda: os.system("grim -g \"$(slurp)\" &")),
 
     (mod+"-Return", lambda: os.system("alacritty &")),
-    (mod+"-e", lambda: os.system("emacsclient -c -a \"emacs\" &")),
-    (mod+"-b", lambda: os.system("cOZ_ENABLE_WAYLAND=1 firefox &")),
+    (mod+"-e", lambda: os.system("emacsclient -c -F \'((font . \"Iosevka-12\"))\' -a \'emacs\' &")),
+    (mod+"-b", lambda: os.system("env MOZ_ENABLE_WAYLAND=1 firefox &")),
     (mod+"-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
     (mod+"-q", lambda: layout.close_view()),
 
@@ -151,6 +154,7 @@ key_bindings = lambda layout: [
     (mod+"-f", lambda: layout.toggle_fullscreen()),
 
     (mod+"-", lambda: layout.toggle_overview(only_active_workspace=False)),
+    (mod+"-j", lambda: layout.toggle_overview()),
 
     ("XF86MonBrightnessUp", lambda: backlight_manager.set(backlight_manager.get() + 0.05)),
     ("XF86MonBrightnessDown", lambda: backlight_manager.set(backlight_manager.get() - 0.05)),
