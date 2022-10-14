@@ -7,6 +7,12 @@ let
     dbus-update-activation-environment --systemd PATH
     systemctl --user start newm.service
   '';
+
+  debug-newm = pkgs.writeShellScriptBin "debug-newm" ''
+    systemctl --user import-environment PATH
+    dbus-update-activation-environment --systemd PATH
+    systemctl --user start debug-newm.service
+  '';
 in
 {
   xdg.configFile."newm/config.py".text = confFile;
@@ -43,6 +49,7 @@ in
   home.packages = with pkgs; [
     newm
     systemd-newm
+    debug-newm
     waybar
     wob
     rofi-wayland
@@ -86,6 +93,27 @@ in
       Type = "simple";
       ExecStart = ''
         ${pkgs.newm}/bin/start-newm
+      '';
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
+
+  systemd.user.services.debug-newm = {
+    Unit = {
+      Description = "Newm - Wayland window manager - Debug";
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
+      # We explicitly unset PATH here, as we want it to be set by
+      # systemctl --user import-environment in startsway
+      # environment.PATH = lib.mkForce null;
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = ''
+        ${pkgs.newm}/bin/start-newm -d
       '';
       Restart = "on-failure";
       RestartSec = 1;
