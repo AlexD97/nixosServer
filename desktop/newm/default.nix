@@ -36,6 +36,10 @@ in
   xdg.configFile."waybar/style.css".source = ./waybar/style.css;
   xdg.configFile."rofi/config.rasi".source = ./rofi.rasi;
 
+  imports = [
+    ./swaync
+  ];
+
   home.packages = with pkgs; [
     newm
     systemd-newm
@@ -66,10 +70,6 @@ in
     sway
   ];
 
-
-  services.dunst.enable = true;
-  services.dunst.waylandDisplay = "wayland-0";
-
   home.file."wallpaper.jpg".source = ./wallpaper.jpg;
 
   systemd.user.services.newm = {
@@ -94,6 +94,8 @@ in
   };
 
   # dunst
+  #services.dunst.enable = true;
+  services.dunst.waylandDisplay = "wayland-0";
   services.dunst.settings = {
     global = {
       follow = "mouse";
