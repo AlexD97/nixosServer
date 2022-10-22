@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, builtins, ... }:
 let
   user = "alexander";
 in
@@ -133,6 +133,10 @@ in
     QT_QPA_PLATFORM="wayland-egl";
   };
 
+  environment.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = "1";
+  };
+
   # SSD trim
   services.fstrim.enable = lib.mkDefault true;
 
@@ -220,13 +224,13 @@ in
   networking.firewall.enable = false;
 
   nix = {
-    package = pkgs.nixVersions.stable;
+    #package = pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
   };
 
   nix.gc = {
     automatic = true;
-    dates = "weekyl";
+    dates = "weekly";
     options = "--delete-older-than 30d";
   };
 

@@ -44,6 +44,7 @@ in
 
   imports = [
     ./swaync
+    ./wayland
   ];
 
   home.packages = with pkgs; [
@@ -70,6 +71,7 @@ in
     #evolution-ews
     gnome.adwaita-icon-theme
     xfce.thunar
+    thunderbird
 
     pavucontrol
     eww-wayland

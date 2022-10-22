@@ -38,6 +38,8 @@ in
   services.syncthing = {
     enable = true;
     devices = allDevices;
+    dataDir = "/home/alexander";
+    user = "alexander";
 
     folders =
       let

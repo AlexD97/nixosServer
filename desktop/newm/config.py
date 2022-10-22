@@ -21,10 +21,7 @@ def on_startup():
     os.system("hash dbus-update-activation-environment 2>/dev/null && \
         dbus-update-activation-environment --systemd DISPLAY \
         WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots QT_QPA_PLATFORM=wayland-egl")
-    #os.system("sleep 8")
-    #os.system("systemctl --user restart kdeconnect.service")
-    #os.system("systemctl --user restart kdeconnect-indicator.service")
-    #os.system("systemctl --user restart syncthingtray.service")
+    os.system("systemctl --user restart xdg-desktop-portal-wlr.service")
 
 def on_reconfigure():
     os.system("notify-send newm \"Reloaded config\" &")
@@ -193,12 +190,12 @@ panels = {
         'h': 0.6,
         'corner_radius': 50,
     },
-    'launcher': {
-        'cmd': 'alacritty -e newm-panel-basic launcher',
-        'w': 0.7,
-        'h': 0.6,
-        'corner_radius': 50,
-    },
+    #'launcher': {
+    #    'cmd': 'alacritty -e newm-panel-basic launcher',
+    #    'w': 0.7,
+    #    'h': 0.6,
+    #    'corner_radius': 50,
+    #},
     'bar': {
         'cmd': 'waybar'
     },

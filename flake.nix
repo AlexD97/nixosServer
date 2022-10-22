@@ -13,6 +13,8 @@
     pywm-fullscreenpkg.url = "github:jbuchermn/pywm-fullscreen";
     pywm-fullscreenpkg.inputs.nixpkgs.follows = "nixpkgs";
 
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+
     vscode-marketplace.url = "github:ameertaweel/nix-vscode-marketplace";
 
   };
@@ -29,6 +31,7 @@
             newm = newmpkg.packages.x86_64-linux.newm;
             pywm-fullscreen = pywm-fullscreenpkg.packages.x86_64-linux.pywm-fullscreen;
           })
+          (import self.inputs.emacs-overlay)
         ];
       };
       lib = nixpkgs.lib;

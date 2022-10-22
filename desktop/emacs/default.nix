@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   programs.emacs = {
     enable = true;
+    package = pkgs.emacsPgtkNativeComp;
     extraPackages = epkgs : [ epkgs.vterm epkgs.async ];
   };
 

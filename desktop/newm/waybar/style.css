@@ -169,6 +169,10 @@
     /* No styles */
 }
 
+#custom-notification {
+  font-family: "NotoSansMono Nerd Font";
+}
+
 #window {
     font-weight: bold;
 }

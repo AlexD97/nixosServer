@@ -1,12 +1,31 @@
 {
   "nodes": {
+    "emacs-overlay": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1666382611,
+        "narHash": "sha256-XTT5sL+msuYcyzh3aLG3Ekip7NiRRYJkqE/PT6p38N4=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "ffc00124f627fd5dec1d649555aa128b66ce6bc7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
-        "lastModified": 1656928814,
-        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
         "type": "github"
       },
       "original": {
@@ -83,11 +102,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1665520899,
-        "narHash": "sha256-N8BYMgvrAYhiXeyrcEeLgngZZaU6MVVocSa+tIfyMyg=",
+        "lastModified": 1665655007,
+        "narHash": "sha256-34ZMJlgqJb73RY/gJz8B4cjdM5ukas2crMYQpmyRGeQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5597b3a7425a9e3f41128308cb1105d3e780f633",
+        "rev": "8cbc6500dfca22d907054f68c564019b3b6cf295",
         "type": "github"
       },
       "original": {
@@ -98,18 +117,18 @@
     },
     "newmpkg": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ],
         "pywmpkg": "pywmpkg"
       },
       "locked": {
-        "lastModified": 1662581453,
-        "narHash": "sha256-pjo0vlk6IylyQOuU2u2wv642qZA2jhUGSb3YC+UMUkE=",
+        "lastModified": 1665831867,
+        "narHash": "sha256-PndSWgKZtri5Kdf06mAyXF45TniA+gMixW8sEomst9M=",
         "owner": "jbuchermn",
         "repo": "newm",
-        "rev": "4e4bd5472a9c33d5548017aefa71f1e7c00aea66",
+        "rev": "6352dd918f658cb820a2f45c498b6aa11d687226",
         "type": "github"
       },
       "original": {
@@ -120,11 +139,25 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1665349835,
-        "narHash": "sha256-UK4urM3iN80UXQ7EaOappDzcisYIuEURFRoGQ/yPkug=",
+        "lastModified": 1666333455,
+        "narHash": "sha256-oHXIeLB/sPWxKNcSdV1DQi1ddNVoJ17T1yDiMMeygL4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "93e0ac196106dce51878469c9a763c6233af5c57",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1665732960,
+        "narHash": "sha256-WBZ+uSHKFyjvd0w4inbm0cNExYTn8lpYFcHEes8tmec=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "34c5293a71ffdb2fe054eb5288adc1882c1eb0b1",
+        "rev": "4428e23312933a196724da2df7ab78eb5e67a88e",
         "type": "github"
       },
       "original": {
@@ -134,7 +167,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1660464579,
         "narHash": "sha256-kzA9rwh0wS6CwUnFHAQ7dhJCowMPfRbvixVeOKnUmjo=",
@@ -152,11 +185,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1665550982,
-        "narHash": "sha256-wg+HGJrkHGbPKaVcAvBbUZHsaDPVSBFFffYqg5je3+E=",
+        "lastModified": 1665828734,
+        "narHash": "sha256-KxlOmS04TcQwi4424GY49PT2Q5a70nkzR/0hYQfR3/M=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "dfa4cbeaee8223ffdfc08606888df3a039d8370f",
+        "rev": "c099c14102291374db699908c267fc3ef0f32695",
         "type": "github"
       },
       "original": {
@@ -211,7 +244,10 @@
     },
     "pywmpkg": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": [
+          "newmpkg",
+          "flake-utils"
+        ],
         "nixpkgs": [
           "newmpkg",
           "nixpkgs"
@@ -233,9 +269,10 @@
     },
     "root": {
       "inputs": {
+        "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "newmpkg": "newmpkg",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "pywm-fullscreenpkg": "pywm-fullscreenpkg",
         "vscode-marketplace": "vscode-marketplace"
@@ -259,7 +296,7 @@
     "vscode-marketplace": {
       "inputs": {
         "flake-utils": "flake-utils_5",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1664277918,

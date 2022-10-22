@@ -5,6 +5,8 @@ let
     # other python packages you want
   ];
   python-with-my-packages = pkgs.python3.withPackages my-python-packages;
+
+  agda-with-my-packages = pkgs.agda.withPackages (p: [ p.standard-library ]);
 in
 
 {
@@ -69,7 +71,7 @@ in
     python-with-my-packages
     julia-bin
     ghc
-    agda
+    agda-with-my-packages
 
     zsh
     fzf
