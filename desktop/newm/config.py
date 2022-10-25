@@ -67,6 +67,8 @@ def rules(view):
         return { 'float': True, 'float_size': (340, 600), 'float_pos': (0.15, 0.4) }
     if view.title is not None and view.title.strip() == "Firefox — Sharing Indicator":
         return { 'float': True, 'float_size': (100, 40), 'float_pos': (0.5, 0.1) }
+    if view.title is not None and "Firefox — Sharing Indicator" in view.title:
+        return { 'float': True, 'float_size': (100, 40), 'float_pos': (0.5, 0.1) }
     if view.app_id == "Alacritty":
         return { 'blur': { 'radius': 5, 'passes': 3}}
     if view.app_id == "waybar":

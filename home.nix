@@ -72,6 +72,7 @@ in
     julia-bin
     ghc
     agda-with-my-packages
+    dotnet-sdk
 
     zsh
     fzf
@@ -97,6 +98,7 @@ in
     extensions = with pkgs.vscode-extensions; with inputs.vscode-marketplace.packages.${inputs.system}.vscode; [
       james-yu.latex-workshop
       julialang.language-julia
+      ionide.ionide-fsharp
     ];
   };
 
