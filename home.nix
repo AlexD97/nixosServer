@@ -73,6 +73,7 @@ in
     ghc
     agda-with-my-packages
     dotnet-sdk
+    gnumake
 
     zsh
     fzf
@@ -85,6 +86,7 @@ in
     (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" ]; })
 
     texlive.combined.scheme-full
+    lhs2tex
 
     sioyek
     evince
@@ -99,6 +101,8 @@ in
       james-yu.latex-workshop
       julialang.language-julia
       ionide.ionide-fsharp
+
+      akamud.vscode-theme-onelight
     ];
   };
 
