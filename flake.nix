@@ -32,6 +32,10 @@
             pywm-fullscreen = pywm-fullscreenpkg.packages.x86_64-linux.pywm-fullscreen;
           })
           (import self.inputs.emacs-overlay)
+
+          /*(self: super: {
+            my-custom-snip = super.callPackage ./custom/snip.nix { };
+          })*/
         ];
       };
       lib = nixpkgs.lib;
