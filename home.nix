@@ -34,6 +34,7 @@ in
     ./desktop/emacs
     ./desktop/email
     ./desktop/eww
+    ./desktop/applications
     ./zsh.nix
   ];
 
