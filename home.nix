@@ -74,7 +74,9 @@ in
     ghc
     agda-with-my-packages
     dotnet-sdk
+    my-fsautocomplete
     gnumake
+    rnix-lsp
 
     zsh
     fzf
@@ -84,7 +86,11 @@ in
 
     emacs-all-the-icons-fonts
     material-design-icons
-    (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" ]; })
+    (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" "JetBrainsMono" ]; })
+    #iosevka-fixed
+    #iosevka-fixed-slab
+    (iosevka-bin.override { variant = "sgr-iosevka-fixed"; } )
+    (iosevka-bin.override { variant = "sgr-iosevka-fixed-curly-slab"; } )
 
     texlive.combined.scheme-full
     lhs2tex
@@ -101,7 +107,9 @@ in
     extensions = with pkgs.vscode-extensions; with inputs.vscode-marketplace.packages.${inputs.system}.vscode; [
       james-yu.latex-workshop
       julialang.language-julia
+      ms-dotnettools.csharp
       ionide.ionide-fsharp
+      bbenoist.nix
 
       akamud.vscode-theme-onelight
     ];

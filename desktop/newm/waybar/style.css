@@ -39,6 +39,7 @@
 
 /* Reset all styles */
 * {
+    all: unset; /* this fixes issue #1741 */
     border: none;
     border-radius: 0;
     min-height: 0;

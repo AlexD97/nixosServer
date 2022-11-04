@@ -131,7 +131,7 @@
 		  :image-converter
 		  ("convert -density %D -trim -antialias %f -quality 100 %O"))))
  '(package-selected-packages
-   '(notmuch vterm vterm-toggle dired-hide-dotfiles diredfl all-the-icons all-the-icons-dired restart-emacs svg-tag-mode rainbow-delimiters elisp-slime-nav rg quelpa-use-package org-journal ox-reveal lsp-ui company lsp-julia lsp-mode lv markdown-mode ht dash-functional quelpa julia-mode olivetti counsel swiper ivy one-themes org-roam auctex undo-tree))
+   '(notmuch vterm vterm-toggle dired-hide-dotfiles diredfl all-the-icons all-the-icons-dired restart-emacs svg-tag-mode rainbow-delimiters elisp-slime-nav rg quelpa-use-package org-journal ox-reveal lsp-ui company lsp-julia lsp-mode lv markdown-mode ht dash-functional quelpa julia-mode olivetti counsel swiper ivy one-themes org-roam auctex undo-tree fsharp-mode eglot-fsharp eglot-jl nix-mode))
  '(safe-local-variable-values
    '((eval progn
 	   (setq-local org-roam-directory "~/Dokumente/Notizen/")
@@ -430,6 +430,19 @@
   (add-to-list 'auto-mode-alist '("alexding97@gmail.com" . notmuch-message-mode)))
 
 (use-package undo-tree)
+
+;; Eglot / LSP stuff
+(use-package fsharp-mode
+  :defer t)
+
+(use-package eglot-fsharp)
+
+(use-package eglot-jl)
+
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
+(add-to-list 'eglot-server-programs '(nix-mode . ("rnix-lsp")))
 
 
 (quelpa
