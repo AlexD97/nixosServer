@@ -36,6 +36,8 @@ in
     ./desktop/eww
     ./desktop/applications
     ./zsh.nix
+
+    ./custom/fsautocomplete.nix
   ];
 
   home.sessionVariables = { QT_QPA_PLATFORM="wayland-egl"; };
@@ -50,6 +52,7 @@ in
     syncthingtray
     warpd
     sqlite
+    ripgrep
     ripgrep-all
     pinentry-gnome
     imagemagick
@@ -74,7 +77,6 @@ in
     ghc
     agda-with-my-packages
     dotnet-sdk
-    my-fsautocomplete
     gnumake
     rnix-lsp
 

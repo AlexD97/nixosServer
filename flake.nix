@@ -38,10 +38,6 @@
             iosevka-fixed-slab = super.iosevka.override { set = "fixed-slab"; };
           })
 
-          (self: super: {
-            my-fsautocomplete = super.callPackage ./custom/fsautocomplete.nix { self.pkgs };
-          })
-
           /*(self: super: {
             my-custom-snip = super.callPackage ./custom/snip.nix { };
           })*/

@@ -11,6 +11,7 @@
       epkgs.olivetti
       epkgs.counsel
       epkgs.swiper
+      epkgs.company
       epkgs.ripgrep
 
       epkgs.all-the-icons
@@ -21,6 +22,8 @@
 
       epkgs.bind-key
       epkgs.use-package
+      epkgs.xah-fly-keys
+      epkgs.yasnippet
 
       epkgs.eglot-jl
       epkgs.fsharp-mode

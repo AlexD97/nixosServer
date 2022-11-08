@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-
-with pkgs;
-rec {
-
+{ config, pkgs, ...}:
+let
   fsautocomplete =
     let
       dotnet = pkgs.dotnetCorePackages.sdk_6_0;
@@ -38,4 +35,9 @@ rec {
       '';
     };
 
+in
+{
+  home.packages = with pkgs; [
+    fsautocomplete
+  ];
 }

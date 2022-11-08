@@ -140,7 +140,7 @@ key_bindings = lambda layout: [
     (mod+"-S", lambda: os.system("grim -g \"$(slurp)\" &")),
 
     (mod+"-Return", lambda: os.system("alacritty &")),
-    (mod+"-e", lambda: os.system("emacsclient -c -F \'((font . \"Iosevka-12\"))\' -a \'emacs\' &")),
+    (mod+"-e", lambda: os.system("emacsclient -c -F \'((font . \"Iosevka-12:spacing=90\"))\' -a \'emacs\' &")),
     (mod+"-b", lambda: os.system("env MOZ_ENABLE_WAYLAND=1 firefox &")),
     (mod+"-A-n", lambda: os.system("swaync-client -t")),
     (mod+"-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
