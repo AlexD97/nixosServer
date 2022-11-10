@@ -12,6 +12,7 @@
       epkgs.counsel
       epkgs.swiper
       epkgs.company
+      epkgs.company-quickhelp
       epkgs.ripgrep
 
       epkgs.all-the-icons

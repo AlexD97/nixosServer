@@ -29,7 +29,7 @@
 )
 
 (defun xah-fly-keys-command-mode-on ()
-    (define-key xah-fly-command-map (kbd "b") #'swiper))
+  (define-key xah-fly-command-map (kbd "b") #'swiper))
 
 (add-hook 'xah-fly-command-mode-activate-hook #'xah-fly-keys-command-mode-on)
 
@@ -37,6 +37,8 @@
   (define-key xah-fly-insert-map (kbd "<home>") #'move-beginning-of-line))
 
 (add-hook 'xah-fly-insert-mode-activate-hook #'xah-fly-keys-insert-mode-on)
+
+(remove-hook 'minibuffer-exit-hook 'xah-fly-command-mode-activate)
 
 
 

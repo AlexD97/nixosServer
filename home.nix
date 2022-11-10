@@ -58,6 +58,8 @@ in
     imagemagick
     jq
 
+    nyxt
+
     libreoffice-fresh
     hunspellDicts.de_DE
     aspell

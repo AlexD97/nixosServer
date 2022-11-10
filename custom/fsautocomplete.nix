@@ -7,8 +7,9 @@ let
       fsautocomplete-dll = pkgs.stdenvNoCC.mkDerivation {
         name = "fsautocomplete-dll";
         src = pkgs.fetchurl {
-          url = "https://github.com/fsharp/FsAutoComplete/releases/download/v0.57.0/fsautocomplete.0.57.0.nupkg";
-          sha256 = "0vdfxwj853mn4746r8lis3zvk3w6x3zsdlgg6a95kpb8nrq2fzwr";
+          url = "https://github.com/fsharp/FsAutoComplete/releases/download/v0.58.2/fsautocomplete.0.58.2.nupkg";
+          #sha256 = "0vdfxwj853mn4746r8lis3zvk3w6x3zsdlgg6a95kpb8nrq2fzwr";
+          sha256 = "LvSD6qiuOGOv3sCqDRypdKm7jLezIyJiy0Dl34Vxhow=";
         };
         nativeBuildInputs = [ pkgs.unzip ];
         dontUnpack = true;
