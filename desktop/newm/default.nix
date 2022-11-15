@@ -71,6 +71,7 @@ in
     #evolution-ews
     gnome.adwaita-icon-theme
     xfce.thunar
+    xfce.tumbler
     thunderbird
 
     pavucontrol

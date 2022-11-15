@@ -11,8 +11,14 @@
       epkgs.olivetti
       epkgs.counsel
       epkgs.swiper
+      epkgs.vertico
+      epkgs.consult
+      epkgs.marginalia
+      epkgs.embark
       epkgs.company
       epkgs.company-quickhelp
+      epkgs.corfu
+      epkgs.corfu-doc
       epkgs.ripgrep
 
       epkgs.all-the-icons
@@ -20,10 +26,10 @@
       epkgs.svg-tag-mode
       epkgs.rainbow-delimiters
       epkgs.org-bullets
+      epkgs.ligature
 
       epkgs.bind-key
       epkgs.use-package
-      epkgs.xah-fly-keys
       epkgs.yasnippet
 
       epkgs.eglot-jl
@@ -32,7 +38,12 @@
       epkgs.nix-mode
       epkgs.lsp-mode
 
+      epkgs.auctex-latexmk
+
       epkgs.org-roam
+      epkgs.emacsql
+      epkgs.emacsql-sqlite
+      epkgs.emacsql-sqlite3
       epkgs.org-journal
       epkgs.one-themes
     ];

@@ -13,7 +13,8 @@
     pywm-fullscreenpkg.url = "github:jbuchermn/pywm-fullscreen";
     pywm-fullscreenpkg.inputs.nixpkgs.follows = "nixpkgs";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    # Version from 2022-11-14 does not work with org-roam
+    emacs-overlay.url = "github:nix-community/emacs-overlay/ab39e4112f2f97fa5e13865fa6792e00e6344558";
 
     vscode-marketplace.url = "github:ameertaweel/nix-vscode-marketplace";
 
