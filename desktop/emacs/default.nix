@@ -12,11 +12,12 @@
       epkgs.counsel
       epkgs.swiper
       epkgs.vertico
+      epkgs.orderless
       epkgs.consult
       epkgs.marginalia
       epkgs.embark
-      epkgs.company
-      epkgs.company-quickhelp
+      #epkgs.company
+      #epkgs.company-quickhelp
       epkgs.corfu
       epkgs.corfu-doc
       epkgs.ripgrep
