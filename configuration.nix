@@ -169,6 +169,7 @@ in
     qt5.qtwayland
     git
     clang
+    gcc
     brightnessctl
     pulseaudio
     wget

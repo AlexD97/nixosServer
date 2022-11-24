@@ -14,12 +14,14 @@
       epkgs.vertico
       epkgs.orderless
       epkgs.consult
+      epkgs.affe
       epkgs.marginalia
       epkgs.embark
       #epkgs.company
       #epkgs.company-quickhelp
       epkgs.corfu
       epkgs.corfu-doc
+      epkgs.cape
       epkgs.ripgrep
 
       epkgs.all-the-icons

@@ -22,6 +22,7 @@ def on_startup():
         dbus-update-activation-environment --systemd DISPLAY \
         WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots QT_QPA_PLATFORM=wayland-egl")
     os.system("systemctl --user restart xdg-desktop-portal-wlr.service")
+    os.system("wl-paste --watch cliphist store &")
 
 def on_reconfigure():
     os.system("notify-send newm \"Reloaded config\" &")
@@ -140,10 +141,13 @@ key_bindings = lambda layout: [
     (mod+"-S", lambda: os.system("grim -g \"$(slurp)\" &")),
 
     (mod+"-Return", lambda: os.system("alacritty &")),
-    (mod+"-e", lambda: os.system("emacsclient -c -F \'((font . \"Iosevka-12:spacing=90\"))\' -a \'emacs\' &")),
+    #(mod+"-e", lambda: os.system("emacsclient -c -F \'((font . \"Iosevka-12:spacing=90\"))\' -a \'emacs\' &")),
+    (mod+"-e", lambda: os.system("emacsclient -c -a \'emacs\' &")),
     (mod+"-b", lambda: os.system("env MOZ_ENABLE_WAYLAND=1 firefox &")),
-    (mod+"-A-n", lambda: os.system("swaync-client -t")),
-    (mod+"-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
+    (mod+"-A-n", lambda: os.system("swaync-client -t &")),
+    (mod+"-c", lambda: os.system("cliphist list | rofi -dmenu | cliphist decode | wl-copy &")),
+    (mod+"-A-c", lambda: os.system("cliphist list | rofi -dmenu | cliphist decode | wl-copy &")),
+    #(mod+"-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
     (mod+"-q", lambda: layout.close_view()),
 
     (mod+"-p", lambda: layout.ensure_locked(dim=True)),

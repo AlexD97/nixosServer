@@ -32,7 +32,7 @@ in
     ./desktop/newm
     ./desktop/sway
     ./desktop/emacs
-    ./desktop/email
+    #./desktop/email
     ./desktop/eww
     ./desktop/applications
     ./zsh.nix
@@ -56,6 +56,7 @@ in
     ripgrep-all
     pinentry-gnome
     imagemagick
+    graphviz
     jq
 
     nyxt

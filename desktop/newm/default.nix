@@ -63,7 +63,12 @@ in
 
     grim
     slurp
+    
+    wl-clipboard
+    cliphist
+    
     wdisplays
+    wlr-randr
 
     gnome.nautilus
     dconf
