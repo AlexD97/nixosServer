@@ -189,7 +189,7 @@
 		  :image-converter
 		  ("convert -density %D -trim -antialias %f -quality 100 %O"))))
  '(package-selected-packages
-   '(notmuch vterm vterm-toggle dired-hide-dotfiles diredfl all-the-icons all-the-icons-dired restart-emacs svg-tag-mode rainbow-delimiters elisp-slime-nav rg quelpa-use-package org-journal ox-reveal lsp-ui company lsp-julia lsp-mode lv markdown-mode ht dash-functional quelpa julia-mode olivetti counsel swiper ivy one-themes org-roam auctex undo-tree fsharp-mode eglot-fsharp eglot-jl nix-mode))
+   '(embark consult affe notmuch vterm vterm-toggle dired-hide-dotfiles diredfl all-the-icons all-the-icons-dired restart-emacs svg-tag-mode rainbow-delimiters elisp-slime-nav rg quelpa-use-package org-journal ox-reveal lsp-ui company lsp-julia lsp-mode lv markdown-mode ht dash-functional quelpa julia-mode olivetti counsel swiper ivy one-themes org-roam auctex undo-tree fsharp-mode eglot-fsharp eglot-jl nix-mode))
  '(safe-local-variable-values
    '((eval progn
 	   (setq-local org-roam-directory "~/Dokumente/Notizen/")
@@ -198,8 +198,7 @@
 		       (rx ".stversions"))
 	   (setq-local org-roam-capture-templates
 		       '(("d" "default" plain "%?" #'org-roam-capture--get-point "%?" :target
-			  (file+head "pages/${slug}.org" "#+title: ${title}
-")
+			  (file+head "pages/${slug}.org" "#+title: ${title}")
 			  :unnarrowed t)))))))
 (setq org-preview-latex-default-process 'dvisvgm)
 
@@ -212,7 +211,10 @@
 ;;; Tell Emacs to start org-roam-mode when Emacs starts
 (add-hook 'after-init-hook 'org-roam-setup)
 
-(setq org-roam-directory "~/Dokumente/Geistliches/Schreiben")
+(if (string= (system-name) "UniLaptop")
+  (setq org-roam-directory "~/Uni")
+  (setq org-roam-directory "~/Dokumente/Geistliches/Schreiben")
+)
 (setq org-roam-v2-ack t)
 
 (org-roam-db-autosync-mode)
@@ -235,18 +237,22 @@
 ;(use-package org
 ;  :bind (:map org-mode-map
 ;         ("C-M i" . completion-at-point)))
-(require 'org-roam-dailies)
-(setq org-roam-dailies-directory "Bibelstudium/journals/")
-;;(setq org-roam-capture-templates
-;;'(("d" "default" plain
-;;    #'org-roam-capture--get-point "%?"
-;;    :file-name "pages/${slug}" :head "#+title: ${title}\n" :unnarrowed t)))
-(setq org-roam-capture-templates
-'(("d" "default" plain "%?"
-    #'org-roam-capture--get-point "%?"
-    :target (file+head "Bibelstudium/Themen/${slug}.org"
-                       "#+title: ${title}\n")
-    :unnarrowed t)))
+(unless (string= (system-name) "UniLaptop")
+  (progn
+    (require 'org-roam-dailies)
+    (setq org-roam-dailies-directory "Bibelstudium/journals/")
+    ;;(setq org-roam-capture-templates
+    ;;'(("d" "default" plain
+    ;;    #'org-roam-capture--get-point "%?"
+    ;;    :file-name "pages/${slug}" :head "#+title: ${title}\n" :unnarrowed t)))
+    (setq org-roam-capture-templates
+    '(("d" "default" plain "%?"
+        #'org-roam-capture--get-point "%?"
+        :target (file+head "Bibelstudium/Themen/${slug}.org"
+                          "#+title: ${title}\n")
+        :unnarrowed t)))
+  )
+)
 
     
 ;; Org-journal
