@@ -82,6 +82,8 @@ in
     pavucontrol
     eww-wayland
 
+    gwenview
+    
     sway
   ];
 

@@ -5,6 +5,21 @@
 ;; You may delete these explanatory comments.
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+;; This is a workaround to get the elpa directory which is created by nix
+(when (string= (system-name) "nixos")
+  (progn
+    (setq nix-elpa-path (concat (replace-regexp-in-string "\r?\n$" "" (shell-command-to-string "nix-store -q --requisites $(readlink $(readlink $(which emacs))) | grep emacs-packages-deps")) "/share/emacs/site-lisp/elpa/"))
+    (let ((default-directory nix-elpa-path))
+      (normal-top-level-add-subdirs-to-load-path))
+    (add-to-list 'package-directory-list nix-elpa-path)
+
+    (dolist (theme-path (directory-files nix-elpa-path nil "theme"))
+      (add-to-list 'custom-theme-load-path (concat nix-elpa-path "/" theme-path))
+      )
+    )
+  )
+
 (package-initialize)
 ;; I suggest to keep these comment lines, too
 ;; below you will see customization automatically added by Emacs
@@ -136,8 +151,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   '("~/Dokumente/Notizen/Allgemein.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-24.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-16.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-14.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-13.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-10.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-09.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-08.org"))
+ ;;'(org-agenda-files
+ ;;  '("~/Dokumente/Notizen/Allgemein.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-24.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-16.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-14.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-13.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-10.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-09.org" "/home/alexander/Dokumente/Notizen/journals/2022-04-08.org"))
  '(org-icalendar-alarm-time 2880)
  '(org-icalendar-categories '(all-tags all-tags))
  '(org-icalendar-use-deadline '(event-if-not-todo event-if-todo-not-done todo-due))
@@ -340,11 +355,8 @@
 ;; Corfu
 (use-package corfu
   :init
-  (global-corfu-mode))
-
-(use-package corfu-doc
-  :hook
-  (corfu-mode))
+  (global-corfu-mode)
+  (corfu-popupinfo-mode))
 
 ;; Cape
 ;; Add extensions
@@ -641,18 +653,12 @@
   (global-ligature-mode t))
 
 
-(quelpa
- '(quelpa-use-package
-   :fetcher git
-   :url "https://github.com/quelpa/quelpa-use-package.git"))
-(require 'quelpa-use-package)
-;;(quelpa '(use-package org-logseq :quelpa (org-logseq :fetcher github :repo "llcc/org-logseq" :files ("*")) :custom (org-logseq-dir "~/Dokumente/Geistliches")))
+;; (quelpa
+;;  '(quelpa-use-package
+;;    :fetcher git
+;;    :url "https://github.com/quelpa/quelpa-use-package.git"))
+;; (require 'quelpa-use-package)
 
-
-;(use-package org-logseq
-;    :quelpa (org-logseq :fetcher github :repo "llcc/org-logseq" :files ("*"))
-;    :custom (org-logseq-dir "~/Dokumente/Geistliches"))
-;(require 'org-logseq)
 
 ;; Agda
 (load-file (let ((coding-system-for-read 'utf-8))
@@ -663,16 +669,6 @@
 (add-hook #'after-init-hook #'quelpa-upgrade-all-maybe)
 ;(setq quelpa-update-melpa-p nil)
 ;(setq quelpa-checkout-melpa-p nil)
-
-;; Julia Language Server
-;(quelpa '(lsp-julia :fetcher github
-;                    :repo "non-Jedi/lsp-julia"
-;                    :files (:defaults "languageserver")))
-;(require 'lsp-julia)
-;(require 'lsp-mode)
-;(require 'lsp-ui)
-;(add-hook 'julia-mode-hook #'lsp)
-;(add-hook 'julia-mode-hook #'lsp-mode)
 
 
 
