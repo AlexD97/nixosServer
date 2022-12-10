@@ -96,6 +96,11 @@ in
     #iosevka-fixed-slab
     (iosevka-bin.override { variant = "sgr-iosevka-fixed"; } )
     (iosevka-bin.override { variant = "sgr-iosevka-fixed-curly-slab"; } )
+    alegreya
+    alegreya-sans
+    gyre-fonts
+    libertinus
+    xits-math
 
     texlive.combined.scheme-full
     lhs2tex

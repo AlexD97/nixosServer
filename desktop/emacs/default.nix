@@ -6,6 +6,8 @@
       epkgs.vterm
       epkgs.async
       epkgs.vterm-toggle
+
+      epkgs.auctex
       
       epkgs.undo-tree
       epkgs.olivetti

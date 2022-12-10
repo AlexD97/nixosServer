@@ -78,7 +78,7 @@
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 (add-to-list 'org-latex-packages-alist
-             '("AUTO" "babel" t ("pdflatex" "xelatex")))
+             '("AUTO" "babel" t ("pdflatex" "xelatex" "lualatex")))
 
 ;(load "~/.emacs.d/calendar/org-caldav")
 ;(require 'org-caldav)
@@ -112,22 +112,65 @@
   (apply orig-fun extension subtreep pub-dir nil))
 (advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified)
 
-(setq org-latex-compiler "xelatex") ;; this needs revision
-(setq org-latex-pdf-process '("latexmk -xelatex -interaction=nonstopmode -output-directory=%o %f"))
-(dolist (ltx_pkg '(("" "fontspec") ("" "xunicode") ("" "unicode-math"))) 
-  (add-to-list 'org-latex-packages-alist ltx_pkg))
+(setq org-latex-compiler "lualatex") ;; this needs revision
+(setq org-latex-pdf-process '("latexmk -lualatex -interaction=nonstopmode -output-directory=%o %f"))
+;(dolist (ltx_pkg '(("" "fontspec") ("" "xunicode") ("" "unicode-math"))) 
+;  (add-to-list 'org-latex-packages-alist ltx_pkg))
 
 ;; Latex Koma-Script classes
 (with-eval-after-load "ox-latex"
   (add-to-list 'org-latex-classes
-               '("scrartcl" "\\documentclass{scrartcl}"
+               '("scrartcl"
+		 "\\documentclass{scrartcl}
+\\usepackage{fontspec}
+\\setmainfont[
+  SmallCapsFont={Alegreya SC},
+  UprightFeatures={SmallCapsFont=AlegreyaSC-Regular},
+  ItalicFeatures={SmallCapsFont=AlegreyaSC-Italic},
+  BoldFeatures={SmallCapsFont=AlegreyaSC-Bold},
+  BoldItalicFeatures={SmallCapsFont=AlegreyaSC-BoldItalic},
+  Ligatures=TeX,
+]{Alegreya}
+\\usepackage{AlegreyaSans}
+
+\\usepackage{amsmath}
+\\usepackage{amssymb}
+\\usepackage{unicode-math}
+
+\\setmathfont{Libertinus Math}
+\\setmathrm{Alegreya}
+\\setmathfont[range=it]{Alegreya-Italic}
+\\setmathfont[range=bfit]{Alegreya-BoldItalic}
+\\setmathfont[range={}]{Libertinus Math}
+\\setmonofont[Scale=0.9]{Iosevka Nerd Font}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
   (add-to-list 'org-latex-classes
-               '("scrreprt" "\\documentclass{scrreprt}"
+               '("scrreprt" "\\documentclass{scrreprt}
+\\usepackage{fontspec}
+\\setmainfont[
+  SmallCapsFont={Alegreya SC},
+  UprightFeatures={SmallCapsFont=AlegreyaSC-Regular},
+  ItalicFeatures={SmallCapsFont=AlegreyaSC-Italic},
+  BoldFeatures={SmallCapsFont=AlegreyaSC-Bold},
+  BoldItalicFeatures={SmallCapsFont=AlegreyaSC-BoldItalic},
+  Ligatures=TeX,
+]{Alegreya}
+\\usepackage{AlegreyaSans}
+
+\\usepackage{amsmath}
+\\usepackage{amssymb}
+\\usepackage{unicode-math}
+
+\\setmathfont{Libertinus Math}
+\\setmathrm{Alegreya}
+\\setmathfont[range=it]{Alegreya-Italic}
+\\setmathfont[range=bfit]{Alegreya-BoldItalic}
+\\setmathfont[range={}]{Libertinus Math}
+\\setmonofont[Scale=0.9]{Iosevka Nerd Font}"
 		 ("\\chapter{%s}". "\\chapter*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -135,7 +178,11 @@
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
   (add-to-list 'org-latex-classes
-               '("beamer" "\\documentclass{beamer}"
+               '("beamer" "\\documentclass{beamer}
+\\usepackage{fontspec}
+\\usepackage{amsmath}
+\\usepackage{amssymb}
+\\usepackage{unicode-math}"
 		 ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
