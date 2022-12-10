@@ -83,6 +83,8 @@ in
     eww-wayland
 
     gwenview
+
+    breeze-icons
     
     sway
   ];

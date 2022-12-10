@@ -137,11 +137,11 @@
 \\usepackage{amssymb}
 \\usepackage{unicode-math}
 
-\\setmathfont{Libertinus Math}
+\\setmathfont{Asana-Math.otf}
 \\setmathrm{Alegreya}
 \\setmathfont[range=it]{Alegreya-Italic}
 \\setmathfont[range=bfit]{Alegreya-BoldItalic}
-\\setmathfont[range={}]{Libertinus Math}
+\\setmathfont[range={}]{Asana-Math.otf}
 \\setmonofont[Scale=0.9]{Iosevka Nerd Font}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -165,11 +165,11 @@
 \\usepackage{amssymb}
 \\usepackage{unicode-math}
 
-\\setmathfont{Libertinus Math}
+\\setmathfont{Asana-Math.otf}
 \\setmathrm{Alegreya}
 \\setmathfont[range=it]{Alegreya-Italic}
 \\setmathfont[range=bfit]{Alegreya-BoldItalic}
-\\setmathfont[range={}]{Libertinus Math}
+\\setmathfont[range={}]{Asana-Math.otf}
 \\setmonofont[Scale=0.9]{Iosevka Nerd Font}"
 		 ("\\chapter{%s}". "\\chapter*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
