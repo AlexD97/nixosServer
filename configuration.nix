@@ -13,6 +13,7 @@ in
       ./framework_laptop.nix
       ./syncthing.nix
       ./desktop/borgbackup
+      ./zsh.nix
     ];
 
   # Bootloader.
@@ -139,6 +140,8 @@ in
     EDITOR = "emacsclient -nw -c -F '((font . \"Iosevka-12\"))' -a 'emacs -nw'";
     QT_QPA_PLATFORMTHEME = "kde";
   };
+
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # SSD trim
   services.fstrim.enable = lib.mkDefault true;

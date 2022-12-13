@@ -33,13 +33,25 @@ let
 in {
   programs.zsh = {
     enable = true;
-    history.size = 10000;
-    enableSyntaxHighlighting = true;
-    initExtra = rga-fzf + "\n" + vterm-print;
-    oh-my-zsh = {
+    #history.size = 10000;
+    histSize = 10000;
+    #enableSyntaxHighlighting = true;
+    syntaxHighlighting = {
+      enable = true;
+    };
+    enableCompletion = true;
+    #initExtra = rga-fzf + "\n" + vterm-print;
+    shellInit = rga-fzf + "\n" + vterm-print;
+    #oh-my-zsh = {
+    ohMyZsh = {
       enable = true;
       plugins = [ "git-prompt" "fzf" ];
       theme = "agnoster";
     };
   };
+  
+  # Is the following necessary?
+  #home.packages = with pkgs; [
+  #  zsh-completions
+  #];
 }

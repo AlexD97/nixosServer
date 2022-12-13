@@ -35,7 +35,7 @@ in
     #./desktop/email
     ./desktop/eww
     ./desktop/applications
-    ./zsh.nix
+    # ./zsh.nix
 
     ./custom/fsautocomplete.nix
   ];

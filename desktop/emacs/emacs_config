@@ -131,7 +131,16 @@
   BoldItalicFeatures={SmallCapsFont=AlegreyaSC-BoldItalic},
   Ligatures=TeX,
 ]{Alegreya}
-\\usepackage{AlegreyaSans}
+\\setsansfont[
+  Extension=.otf,
+  UprightFont=*-Regular,
+  ItalicFont=*-Italic,
+  BoldFont=*-Bold,
+  UprightFeatures={SmallCapsFont=*SC-Regular},
+  ItalicFeatures={SmallCapsFont=*SC-Italic},
+  BoldFeatures={SmallCapsFont=*SC-Bold},
+  BoldItalicFeatures={SmallCapsFont=*SC-BoldItalic},
+]{AlegreyaSans}
 
 \\usepackage{amsmath}
 \\usepackage{amssymb}
@@ -159,7 +168,16 @@
   BoldItalicFeatures={SmallCapsFont=AlegreyaSC-BoldItalic},
   Ligatures=TeX,
 ]{Alegreya}
-\\usepackage{AlegreyaSans}
+\\setsansfont[
+  Extension=.otf,
+  UprightFont=*-Regular,
+  ItalicFont=*-Italic,
+  BoldFont=*-Bold,
+  UprightFeatures={SmallCapsFont=*SC-Regular},
+  ItalicFeatures={SmallCapsFont=*SC-Italic},
+  BoldFeatures={SmallCapsFont=*SC-Bold},
+  BoldItalicFeatures={SmallCapsFont=*SC-BoldItalic},
+]{AlegreyaSans}
 
 \\usepackage{amsmath}
 \\usepackage{amssymb}
