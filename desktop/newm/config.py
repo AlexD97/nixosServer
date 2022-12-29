@@ -13,7 +13,7 @@ from pywm import (
     PYWM_TRANSFORM_FLIPPED_270,
 )
 
-from newm.helper import BacklightManager, WobRunner, PaCtl
+from newm.helper import BacklightManager, WobRunner, PaCtl, execute
 
 def on_startup():
     #os.system("dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots QT_QPA_PLATFORM=wayland-egl")
@@ -26,7 +26,7 @@ def on_startup():
 
 def on_reconfigure():
     os.system("notify-send newm \"Reloaded config\" &")
-
+            
 corner_radius = 0.0
 #corner_radius = 20.5
 
@@ -35,8 +35,8 @@ outputs = [
     { 'name': 'virt-1', 'pos_x': 1280, 'pos_y': 0, 'width': 1280, 'height': 720, 'scale': 1., 
         'mHz': 30000, 'anim': False},
     { 'name': 'DP-5', 'pos_x': 0, 'pos_y': -1050 },
-    { 'name': 'DP-6', 'pos_x': -2760, 'pos_y': -1920, 'transform': PYWM_TRANSFORM_90 },
-    { 'name': 'DP-7', 'pos_x': -1680, 'pos_y': -1050 },
+    { 'name': 'DP-6', 'pos_x': -3000, 'pos_y': -1920, 'transform': PYWM_TRANSFORM_90 },
+    { 'name': 'DP-7', 'pos_x': -1920, 'pos_y': -1200 },
     # Büro
     { 'name': 'DP-2', 'pos_x': 0, 'pos_y': -1920, 'transform': PYWM_TRANSFORM_90 },
     { 'name': 'DP-1', 'pos_x': 1128, 'pos_y': -1440 }
@@ -118,6 +118,15 @@ def synchronous_update() -> None:
 
 pactl = PaCtl(0, wob_runner)
 
+def adjust_current_volume(delta):
+    current_sink = execute("pactl list short sinks | grep RUNNING | awk '{print $1}'")
+    current_sink = current_sink.strip()
+    if current_sink.isdigit():
+        current_pactl = PaCtl(int(current_sink))
+        current_pactl.volume_adj(delta)
+    else:
+        pactl.volume_adj(delta)
+
 key_bindings = lambda layout: [
     (mod+"-n", lambda: layout.move(-1, 0)),
     (mod+"-r", lambda: layout.move(0, 1)),
@@ -164,8 +173,10 @@ key_bindings = lambda layout: [
     ("XF86MonBrightnessDown", lambda: backlight_manager.set(backlight_manager.get() - 0.05)),
     #("XF86KbdBrightnessUp", lambda: kbdlight_manager.set(kbdlight_manager.get() + 0.1)),
     #("XF86KbdBrightnessDown", lambda: kbdlight_manager.set(kbdlight_manager.get() - 0.1)),
-    ("XF86AudioRaiseVolume", lambda: pactl.volume_adj(5)),
-    ("XF86AudioLowerVolume", lambda: pactl.volume_adj(-5)),
+    #("XF86AudioRaiseVolume", lambda: pactl.volume_adj(5)),
+    ("XF86AudioRaiseVolume", lambda: adjust_current_volume(5)),
+    #("XF86AudioLowerVolume", lambda: pactl.volume_adj(-5)),
+    ("XF86AudioLowerVolume", lambda: adjust_current_volume(-5)),
     ("XF86AudioMute", lambda: pactl.mute()),
 
     ("XF86LaunchA", lambda: None),

@@ -76,6 +76,7 @@ in
 
     #python3
     python-with-my-packages
+    python-language-server
     julia-bin
     ghc
     agda-with-my-packages
