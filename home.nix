@@ -56,6 +56,7 @@ in
     ripgrep-all
     pinentry-gnome
     imagemagick
+    poppler_utils
     graphviz
     jq
 

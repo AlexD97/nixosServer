@@ -78,6 +78,10 @@ in
     xfce.thunar
     xfce.tumbler
     thunderbird
+    dolphin
+    libsForQt5.dolphin-plugins
+    libsForQt5.kio-extras
+    krusader
 
     pavucontrol
     eww-wayland

@@ -364,7 +364,7 @@
   ;; (setq vertico-resize t)
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  (setq vertico-cycle t)
+  ;; (setq vertico-cycle t)
   )
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
@@ -471,7 +471,7 @@
   :config
   ;; Manual preview key for `affe-grep'
   ;; (consult-customize affe-grep :preview-key (kbd "M-."))
-  
+  (setq affe-count 200)
   (defun affe-orderless-regexp-compiler (input _type _ignorecase)
    (setq compiled_input (orderless-pattern-compiler input))
    (cons compiled_input (lambda (str) (orderless--highlight compiled_input str))))
