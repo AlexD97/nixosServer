@@ -521,7 +521,7 @@
 ;(add-to-list 'default-frame-alist '(font . "-CTDB-Fira Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"))
 ;(add-to-list 'default-frame-alist '(font . "Iosevka" height . 120))
 ;(set-face-attribute 'default nil  :font "Iosevka"  :height 120)
-(setq default-frame-alist '((font . "Iosevka-12:spacing=90")))
+(setq default-frame-alist '((font . "Iosevka Nerd Font-12:spacing=90")))
 
 ;; Optional additional aesthetic changes
 ;; Adapted from `sanity.el' in Elegant Emacs by Nicolas P. Rougier (rougier)

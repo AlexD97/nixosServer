@@ -87,6 +87,7 @@ in
 
     zsh
     fzf
+    zsh-powerlevel10k
     moreutils
     bc
     recode

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, home, ... }:
 let
   rga-fzf =
     ''
@@ -41,14 +41,18 @@ in {
     };
     enableCompletion = true;
     #initExtra = rga-fzf + "\n" + vterm-print;
-    shellInit = rga-fzf + "\n" + vterm-print;
+    shellInit = rga-fzf + "\n" + vterm-print + "\n[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh";
+    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
     #oh-my-zsh = {
     ohMyZsh = {
       enable = true;
-      plugins = [ "git-prompt" "fzf" ];
-      theme = "agnoster";
+      #plugins = [ "git-prompt" "fzf" ];
+      plugins = [ "fzf" ];
+      #theme = "agnoster";
     };
   };
+
+  #home.file.".p10k.zsh".source = ./.p10k.zsh;
   
   # Is the following necessary?
   #home.packages = with pkgs; [
