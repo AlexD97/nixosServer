@@ -4,4 +4,5 @@
   xdg.configFile."sioyek/prefs_user.config".source = ./sioyek_prefs_user.config;
   xdg.configFile."alacritty/alacritty.yml".source = ./alacritty.yml;
   xdg.configFile."alacritty/themes/AtomOneLight.conf".source = ./alacrittyAtomOneLight.conf;
+  xdg.configFile."alacritty/themes/AtomOneDark.conf".source = ./alacrittyAtomOneDark.conf;
 }

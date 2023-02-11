@@ -1,2 +1,25 @@
 import:
- - ~/.config/alacritty/themes/themes/AtomOneLight.conf
+ - ~/.config/alacritty/themes/AtomOneDark.conf
+# Font configuration
+font:
+  normal:
+    family: Iosevka Nerd Font
+    style: Regular
+
+  # Bold font face
+  bold:
+    family: Iosevka Nerd Font
+    style: Bold
+
+  # Italic font face
+  italic:
+    family: Iosevka Nerd Font
+    style: Italic
+
+  # Bold italic font face
+  bold_italic:
+    family: Iosevka Nerd Font
+    style: Bold Italic
+
+  # Point size
+  size: 12.0
