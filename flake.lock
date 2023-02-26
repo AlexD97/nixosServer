@@ -19,6 +19,22 @@
         "type": "github"
       }
     },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -171,17 +187,17 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1671213428,
-        "narHash": "sha256-0deLDx1KjTiB3AKV2/OizGfEWcp6ZPjsDXk99uPJ8FM=",
+        "lastModified": 1676973346,
+        "narHash": "sha256-rft8oGMocTAhUVqG3LW6I8K/Fo9ICGmNjRqaWTJwav0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "dbc68fa4bb132d990945d39801b0d7f2ba15b08f",
+        "rev": "d0d55259081f0b97c828f38559cad899d351cad1",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
-        "rev": "dbc68fa4bb132d990945d39801b0d7f2ba15b08f",
         "type": "github"
       }
     },
@@ -297,20 +313,21 @@
     },
     "vscode-marketplace": {
       "inputs": {
+        "flake-compat": "flake-compat",
         "flake-utils": "flake-utils_5",
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1673775196,
-        "narHash": "sha256-I/NPmIJrlK1I5yL7V5jtEZkYtYWfRviwx1JQh88F35c=",
-        "owner": "ameertaweel",
-        "repo": "nix-vscode-marketplace",
-        "rev": "b7db33c44e134f2b03bdde565b6919d622fa100d",
+        "lastModified": 1677028621,
+        "narHash": "sha256-FemG3iPstPwz02j1tlt03XOtMQMnkd545fwFW67Yxb4=",
+        "owner": "nix-community",
+        "repo": "nix-vscode-extensions",
+        "rev": "3b7b3c2d5672579df2a7a94f0bc2b85ecbce7a72",
         "type": "github"
       },
       "original": {
-        "owner": "ameertaweel",
-        "repo": "nix-vscode-marketplace",
+        "owner": "nix-community",
+        "repo": "nix-vscode-extensions",
         "type": "github"
       }
     }

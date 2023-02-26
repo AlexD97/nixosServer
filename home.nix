@@ -117,12 +117,14 @@ in
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; with inputs.vscode-marketplace.packages.${inputs.system}.vscode; [
+    extensions = with pkgs.vscode-extensions; with inputs.vscode-marketplace.extensions.${inputs.system}.vscode-marketplace; [
       james-yu.latex-workshop
       julialang.language-julia
       ms-dotnettools.csharp
       ionide.ionide-fsharp
       bbenoist.nix
+      ms-python.python
+      pkgs.vscode-extensions.github.copilot
 
       akamud.vscode-theme-onelight
     ];

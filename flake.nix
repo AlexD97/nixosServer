@@ -18,7 +18,8 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     #emacs-overlay.url = "github:nix-community/emacs-overlay/5403096194fd02e1a5424a365d057d934c705639";
 
-    vscode-marketplace.url = "github:ameertaweel/nix-vscode-marketplace";
+    #vscode-marketplace.url = "github:ameertaweel/nix-vscode-marketplace";
+    vscode-marketplace.url = "github:nix-community/nix-vscode-extensions";
 
   };
 
