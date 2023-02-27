@@ -3,6 +3,7 @@ inputs@{ config, pkgs, lib, ... }:
 let
   my-python-packages = python-packages: with python-packages; [
     # other python packages you want
+    python-lsp-server
   ];
   python-with-my-packages = pkgs.python3.withPackages my-python-packages;
 
@@ -77,13 +78,13 @@ in
 
     #python3
     python-with-my-packages
-    python-language-server
     julia-bin
     ghc
     agda-with-my-packages
     dotnet-sdk
     gnumake
     rnix-lsp
+    nodejs
 
     zsh
     fzf
