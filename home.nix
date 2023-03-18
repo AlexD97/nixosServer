@@ -85,6 +85,9 @@ in
     gnumake
     rnix-lsp
     nodejs
+    idris2
+    haskell-language-server
+    cabal-install
 
     zsh
     fzf
@@ -108,6 +111,8 @@ in
 
     texlive.combined.scheme-full
     lhs2tex
+
+    pandoc
 
     sioyek
     evince

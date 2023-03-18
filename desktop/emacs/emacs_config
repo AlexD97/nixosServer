@@ -709,6 +709,9 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
+(use-package python-mode
+  :mode "\\.py\\'")
+
 (add-to-list 'eglot-server-programs '(nix-mode . ("rnix-lsp")))
 
 ;; Ligatures

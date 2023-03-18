@@ -25,6 +25,7 @@
       #epkgs.corfu-doc
       epkgs.cape
       epkgs.ripgrep
+      epkgs.flycheck
 
       epkgs.htmlize
       epkgs.all-the-icons
@@ -46,6 +47,10 @@
       epkgs.fsharp-mode
       epkgs.eglot-fsharp
       epkgs.nix-mode
+      epkgs.python-mode
+      epkgs.idris-mode
+      epkgs.haskell-mode
+      epkgs.lsp-haskell
       epkgs.lsp-mode
 
       #epkgs.auctex-latexmk

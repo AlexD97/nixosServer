@@ -139,6 +139,7 @@ in
     NIXOS_OZONE_WL = "1";
     EDITOR = "emacsclient -nw -c -F '((font . \"Iosevka-12\"))' -a 'emacs -nw'";
     QT_QPA_PLATFORMTHEME = "kde";
+    #GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"; # for gtk / udiskie (pixbuf)
   };
 
   environment.pathsToLink = [ "/share/zsh" ];
@@ -185,6 +186,7 @@ in
     udisks
     pciutils
     samba
+    unzip
 
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   ];
