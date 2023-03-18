@@ -10,9 +10,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./framework_laptop.nix
-      ./syncthing.nix
-      ./desktop/borgbackup
+      ./thinkpad_laptop.nix
       ./zsh.nix
     ];
 
@@ -21,18 +19,9 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
-  # Enable swap on luks
-  boot.initrd.luks.devices."luks-daacb8ec-48e8-4f8a-bb18-8a541c3c2824".device = "/dev/disk/by-uuid/daacb8ec-48e8-4f8a-bb18-8a541c3c2824";
-  boot.initrd.luks.devices."luks-daacb8ec-48e8-4f8a-bb18-8a541c3c2824".keyFile = "/crypto_keyfile.bin";
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "thinpadNixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary

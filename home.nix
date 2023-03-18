@@ -141,13 +141,6 @@ in
       enable = true;
       indicator = true;
     };
-    syncthing = {
-    #  enable = true;
-      tray = {
-        enable = true;
-        command = "syncthingtray --wait";
-      };
-    };
   };
 
   systemd.user.services.kdeconnect.Service = {
@@ -157,11 +150,6 @@ in
 
   systemd.user.services.kdeconnect-indicator.Service = {
     Restart = lib.mkOverride 0 "on-failure";
-    RestartSec = "3";
-  };
-
-  systemd.user.services.syncthingtray.Service = {
-    Restart = "on-failure";
     RestartSec = "3";
   };
 
