@@ -31,7 +31,7 @@ corner_radius = 0.0
 #corner_radius = 20.5
 
 outputs = [
-    { 'name': 'eDP-1', 'width': 2256, 'height': 1504, 'pos_x': 0, 'pos_y': 0, 'scale': 1. }, # },
+    { 'name': 'eDP-1', 'width': 1920, 'height': 1080, 'pos_x': 0, 'pos_y': 0, 'scale': 1. }, # },
     { 'name': 'virt-1', 'pos_x': 1280, 'pos_y': 0, 'width': 1280, 'height': 720, 'scale': 1., 
         'mHz': 30000, 'anim': False},
     { 'name': 'DP-5', 'pos_x': 0, 'pos_y': -1050 },
