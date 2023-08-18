@@ -1,0 +1,18 @@
+{pkgs, ... }:
+let
+  
+  olaf = "hallo";
+  
+in {
+  virtualisation.oci-containers.containers = {
+    immich_server = {
+      image = "ghcr.io/immich-app/immich-server:release";
+
+      dependsOn = [
+        "typesense"
+      ];
+    };
+  };
+}
+  
+    
