@@ -1,7 +1,44 @@
 {pkgs, ... }:
 let
+  dbHostname = "immich_postgres"; 
+  dbUsername = "postgres";
+  dbPassword = "postgres";
+  dbDatabaseName = "immich";
+
+  redisHostname = "192.168.178.43";
+  redisPassword = "hunter2";
+  photosLocation = "/home/alexander/Bilder/Immich";
+
+  immichWebUrl = "http://immich_web:3000";
+  immichServerUrl = "http://immich_server:3001";
+  immichMachineLearningUrl = "http://immich_machine_learning:3003";
+
+  typesenseApiKey = "abcxyz123";
+  typesenseDataDir = "/data";
   
-  olaf = "hallo";
+  environment = {
+    DB_HOSTNAME = dbHostname;
+    DB_USERNAME = dbUsername;
+    DB_PASSWORD = dbPassword;
+    DB_DATABASE_NAME = dbDatabaseName;
+
+    REDIS_HOSTNAME = "immich_redis";
+#    REDIS_PASSWORD = redisPassword;
+    
+    UPLOAD_LOCATION = photosLocation;
+
+    TYPESENSE_API_KEY = typesenseApiKey;
+    TYPESENSE_DATA_DIR = typesenseDataDir;
+
+    IMMICH_WEB_URL = immichWebUrl;
+    IMMICH_SERVER_URL = immichServerUrl;
+    IMMICH_MACHINE_LEARNING_URL = immichMachineLearningUrl;
+
+    POSTGRES_PASSWORD = dbPassword;
+    POSTGRES_USER = dbUsername;
+    POSTGRES_DB = dbDatabaseName;
+
+  };
   
 in {
   virtualisation.oci-containers.containers = {
@@ -12,10 +49,15 @@ in {
       ];
 
       dependsOn = [
-        "redis"
-        "database"
+        "immich_redis"
+        "immich_postgres"
         "typesense"
       ];
+
+      cmd = [ "./start-server.sh" ];
+
+      extraOptions = [ "--network=immich-bridge" ];
+      environment = environment;
     };
 
     immich_microservices = {
@@ -24,44 +66,49 @@ in {
         "/home/alexander/Bilder/Immich:/usr/src/app/upload"
       ];
       dependsOn = [
-        "redis"
-        "database"
+        "immich_redis"
+        "immich_postgres"
         "typesense"
       ];
+
+      cmd = [ "./start-microservices.sh" ];
+
+      extraOptions = [ "--network=immich-bridge" ];
+      environment = environment;
     };
 
     immich_web = {
-      image = ghcr.io/immich-app/immich-web:release;
+      image = "ghcr.io/immich-app/immich-web:release";
+
+      extraOptions = [ "--network=immich-bridge" ];
+      environment = environment;
     };
 
-    immich_typesense = {
+    typesense = {
       image = "typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd";
       volumes = [
         "tsdata:/data"
       ];
 
-      environment = {
-        TYPESENSE_API_KEY = "random-text654321";
-        TYPESENSE_DATA_DIR = /data;
-      };
+      extraOptions = [ "--network=immich-bridge" ];
+      environment = environment;
     };
 
     immich_redis = {
       image = "redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3";
+
+      extraOptions = [ "--network=immich-bridge" ];
     };
 
-    immich_database = {
+    immich_postgres = {
       image = "postgres:14-alpine@sha256:28407a9961e76f2d285dc6991e8e48893503cc3836a4755bbc2d40bcc272a441";
 
       volumes = [
         "pgdata:/var/lib/postgresql/data"
       ];
 
-      environment = {
-        POSTGRES_PASSWORD = postgres;
-        POSTGRES_USER = postgres;
-        POSTGRES_DB = immich;
-      };
+      extraOptions = [ "--network=immich-bridge" ];
+      environment = environment;
     };
 
     immich_proxy = {
@@ -71,16 +118,31 @@ in {
         "2283:8080"
       ];
 
-      environment = {
-        IMMICH_SERVER_URL = "http://immich_server:3001";
-        IMMICH_WEB_URL = "http://immich_web:3000";
-      };
+      environment = environment;
 
       dependsOn = [
         "immich_server"
         "immich_web"
       ];
+
+      extraOptions = [ "--network=immich-bridge" ];
     };
+  };
+  
+  systemd.services.init-immich-network = {
+    description = "Create the network bridge for immich.";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      # Put a true at the end to prevent getting non-zero return code, which will
+      # crash the whole service.
+      check=$(${pkgs.podman}/bin/podman network ls | grep "immich-bridge" || true)
+      if [ -z "$check" ];
+        then ${pkgs.podman}/bin/podman network create immich-bridge
+        else echo "immich-bridge already exists in podman"
+      fi
+      ''; 
   };
 }
   

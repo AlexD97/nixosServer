@@ -12,6 +12,8 @@ in
       ./hardware-configuration.nix
       ./thinkpad_laptop.nix
       ./zsh.nix
+      ./server/immich.nix
+      ./server/pihole.nix
     ];
 
   # Bootloader.
