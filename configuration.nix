@@ -14,6 +14,7 @@ in
       ./zsh.nix
       ./server/immich.nix
       ./server/pihole.nix
+      ./server/ssl.nix
     ];
 
   # Bootloader.

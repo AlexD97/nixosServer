@@ -54,7 +54,7 @@ in
     warpd
     sqlite
     ripgrep
-    ripgrep-all
+    #ripgrep-all
     pinentry-gnome
     imagemagick
     poppler_utils
