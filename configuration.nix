@@ -15,6 +15,8 @@ in
       ./server/immich.nix
       ./server/pihole.nix
       ./server/ssl.nix
+      ./server/nginx.nix
+      ./server/nut.nix
     ];
 
   # Bootloader.
@@ -177,9 +179,11 @@ in
     htop
     udisks
     pciutils
+    usbutils
     samba
     unzip
     lsof
+    nut
 
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   ];

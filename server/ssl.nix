@@ -14,5 +14,8 @@
     };
   };
 
+  users.users.nginx.isSystemUser = true;
+  users.users.nginx.group = "nginx";
+  users.groups.nginx = {};
   users.users.nginx.extraGroups = [ "acme" ];
 }
