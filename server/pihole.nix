@@ -10,7 +10,9 @@ in {
         TZ = "Europe/Berlin";
         DNS1 = "1.1.1.1";
         DNS2 = "8.8.8.8";
-        ServerIP = "192.168.178.150";
+#        ServerIP = "192.168.178.150";
+        FTLCONF_LOCAL_IPV4 = "192.168.178.150";
+        FTLCONF_LOCAL_IPV6 = "fd00::52e6:36ff:6496:f0f6";
       };
       # ports = [
       #   "53:53/tcp"
@@ -28,8 +30,10 @@ in {
 #        "--dns=127.0.0.1"
         "--network=ipvlan_test1"
         "--ip=192.168.178.150"
-        "--cap-add=NET_ADMIN"
-        "--cap-add=NET_RAW"
+        "--ip6=fd00::52e6:36ff:6496:f0f6"
+#        "--restart=unless-stopped"
+#        "--cap-add=NET_ADMIN"
+#        "--cap-add=NET_RAW"
       ];
     };
   };
@@ -49,6 +53,8 @@ in {
 #   '';
 #       --ip-range=192.168.178.150/32 \
 
+# sudo podman network create -d ipvlan --subnet=192.168.178.0/24 --gateway=192.168.178.1 --subnet=fd00::52e6:36ff/64 --gateway=fd00::52e6:36ff:fe3d:123 -o parent=wlp4s0 ipvlan_test1
+  
   # systemd.services.init-pihole-network = {
   #   description = "Create the network for pihole.";
   #   after = [ "network.target" ];

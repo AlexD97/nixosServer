@@ -2,50 +2,103 @@
 let
 
 in {
-  services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
+  # services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
   # networking.firewall.allowedTCPPorts = [
+  #   445
+  #   139
   #   5357 # wsdd
   # ];
   # networking.firewall.allowedUDPPorts = [
+  #   137
+  #   138
   #   3702 # wsdd
   # ];
+  # services.samba = {
+  #   enable = true;
+  #   enableNmbd = true;
+  #   securityType = "user";
+  #   extraConfig = ''
+  #     workgroup = WORKGROUP
+  #     server string = smbnix
+  #     netbios name = smbnix
+  #     security = user 
+  #     #use sendfile = yes
+  #     #max protocol = smb2
+  #     # note: localhost is the ipv6 localhost ::1
+  #     hosts allow = 192.168.0. 127.0.0.1 localhost
+  #     hosts deny = 0.0.0.0/0
+  #     guest account = nobody
+  #     map to guest = bad user
+  #   '';
+  #   shares = {
+  #   #   public = {
+  #   #     path = "/mnt/Shares/Public";
+  #   #     browseable = "yes";
+  #   #     "read only" = "no";
+  #   #     "guest ok" = "yes";
+  #   #     "create mask" = "0644";
+  #   #     "directory mask" = "0755";
+  #   #     "force user" = "username";
+  #   #     "force group" = "groupname";
+  #   #   };
+  #     private = {
+  #       path = "/home/alexander/Dokumente";
+  #       browseable = "yes";
+  #       "read only" = "no";
+  #       "guest ok" = "no";
+  #       "create mask" = "0644";
+  #       "directory mask" = "0755";
+  #       "force user" = "username";
+  #       "force group" = "groupname";
+  #     };
+  #   };
+  # };
   services.samba = {
     enable = true;
+    package = pkgs.samba4Full;
     securityType = "user";
+    invalidUsers = [ "root" ];
+    openFirewall = true;
     extraConfig = ''
       workgroup = WORKGROUP
       server string = smbnix
-      netbios name = smbnix
-      security = user 
-      #use sendfile = yes
-      #max protocol = smb2
-      # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.0. 127.0.0.1 localhost
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
+      server role = standalone server
     '';
-    # shares = {
-    #   public = {
-    #     path = "/mnt/Shares/Public";
-    #     browseable = "yes";
-    #     "read only" = "no";
-    #     "guest ok" = "yes";
-    #     "create mask" = "0644";
-    #     "directory mask" = "0755";
-    #     "force user" = "username";
-    #     "force group" = "groupname";
-    #   };
-      private = {
-        path = "/mnt/Shares/Private";
+    shares = {
+      server1-home-me = { 
+        path = "/home/alexander/Dokumente/";
+        "guest ok" = "no";
+        public = "yes";
+        writable = "yes";
+        printable = "no";
         browseable = "yes";
         "read only" = "no";
+        comment = "server1 /home/alexander/Dokumente/ samba share.";
+      };
+      server1-data = {
+        path = "/home/alexander/Downloads";
         "guest ok" = "no";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "username";
-        "force group" = "groupname";
+        public = "yes";
+        writable = "yes";
+        printable = "no";
+        browseable = "yes";
+        "read only" = "no";
+        comment = "server1 /home/alexander/Downloads/ samba share.";
       };
     };
+  };
+
+  services.samba-wsdd = {
+    enable = true;
+    discovery = true;  
+    openFirewall = true;
+    extraOptions = [
+      "--verbose"
+    ];
+  };
+
+  networking.firewall = {
+    allowedTCPPorts = [ 137 138 139 389 445 ];
+    allowedUDPPorts = [ 137 138 139 389 445 ];
   };
 }

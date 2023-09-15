@@ -17,6 +17,8 @@ in
       ./server/ssl.nix
       ./server/nginx.nix
       ./server/nut.nix
+      ./server/smb.nix
+      ./server/paperless.nix
     ];
 
   # Bootloader.
