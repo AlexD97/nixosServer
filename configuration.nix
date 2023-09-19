@@ -28,7 +28,7 @@ in
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "thinpadNixos"; # Define your hostname.
+  networking.hostName = "thinkpadNixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -157,6 +157,9 @@ in
     #  thunderbird
     ];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEuNFhwtWarRtxgMUx3HPshk0Aj/yOqwBz/YdEQCP17 alexander"
+    ];
   };
 
   # Allow unfree packages
@@ -225,7 +228,9 @@ in
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
