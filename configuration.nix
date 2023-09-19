@@ -19,6 +19,7 @@ in
       ./server/nut.nix
       ./server/smb.nix
       ./server/paperless.nix
+      ./server/ntfy.nix
     ];
 
   # Bootloader.

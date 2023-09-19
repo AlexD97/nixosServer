@@ -2,6 +2,7 @@
 let
   # dbHostname = "immich_postgres";
 in {
+  virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers = {
     pihole = {
       autoStart = true;
@@ -53,6 +54,29 @@ in {
 #   '';
 #       --ip-range=192.168.178.150/32 \
 
+ system.activationScripts.mkPiholeNetwork = let
+#    myDocker = config.virtualisation.oci-containers.backend;
+   #    dockerBin = "${pkgs.${myDocker}}/bin/${myDocker}";
+ # in ''
+ #    ${pkgs.podman}/bin/podman network create --subnet=192.168.178.0/24 macvlan_test2
+ #  '';
+  in ''
+    check=$(${pkgs.docker}/bin/docker network ls | grep "ipvlan_test1" || true)
+    if [ -z "$check" ];
+      then
+        ${pkgs.docker}/bin/docker network create -d ipvlan \
+          --subnet=192.168.178.0/24 \
+          --gateway=192.168.178.1 \
+          --ipv6 \
+          --subnet=fd00::52e6:36ff/64 \
+          --gateway=fd00::52e6:36ff:fe3d:123 \
+          -o parent=wlp4s0 \
+          ipvlan_test1
+      else echo "immich-bridge already exists in docker"
+    fi
+  '';
+#      --ip-range=192.168.178.150/32 \
+  
 # sudo podman network create -d ipvlan --subnet=192.168.178.0/24 --gateway=192.168.178.1 --subnet=fd00::52e6:36ff/64 --gateway=fd00::52e6:36ff:fe3d:123 -o parent=wlp4s0 ipvlan_test1
   
   # systemd.services.init-pihole-network = {
