@@ -3,11 +3,8 @@ inputs@{ config, pkgs, lib, ... }:
 let
   my-python-packages = python-packages: with python-packages; [
     # other python packages you want
-    python-lsp-server
   ];
   python-with-my-packages = pkgs.python3.withPackages my-python-packages;
-
-  agda-with-my-packages = pkgs.agda.withPackages (p: [ p.standard-library ]);
 in
 
 {
@@ -24,7 +21,7 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "22.05";
+  home.stateVersion = "23.05";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -37,58 +34,22 @@ in
     ./desktop/eww
     ./desktop/applications
     # ./zsh.nix
-
-    ./custom/fsautocomplete.nix
   ];
-
-  home.sessionVariables = { QT_QPA_PLATFORM="wayland-egl"; };
 
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    alacritty
     #emacs
-    vlc
-    anki
-    syncthingtray
-    warpd
     sqlite
     ripgrep
     #ripgrep-all
-    pinentry-gnome
-    imagemagick
-    poppler_utils
-    graphviz
-    jq
-
-    nyxt
-
-    libreoffice-fresh
-    hunspellDicts.de_DE
-    aspell
-    aspellDicts.de
-    
-    isync
-    notmuch
-
-    libappindicator
-
-    udiskie
-    jmtpfs
 
     #python3
     python-with-my-packages
     julia-bin
-    ghc
-    agda-with-my-packages
-    dotnet-sdk
     gnumake
     rnix-lsp
-    nodejs
-    idris2
-    haskell-language-server
-    cabal-install
-
+    
     zsh
     fzf
     zsh-powerlevel10k
@@ -114,50 +75,6 @@ in
 
     pandoc
 
-    sioyek
-    evince
-
     borgbackup
-    vorta
   ];
-
-  programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; with inputs.vscode-marketplace.extensions.${inputs.system}.vscode-marketplace; [
-      james-yu.latex-workshop
-      julialang.language-julia
-      ms-dotnettools.csharp
-      ionide.ionide-fsharp
-      bbenoist.nix
-      ms-python.python
-      pkgs.vscode-extensions.github.copilot
-
-      akamud.vscode-theme-onelight
-    ];
-  };
-
-  services = {
-    kdeconnect = {
-      enable = true;
-      indicator = true;
-    };
-  };
-
-  systemd.user.services.kdeconnect.Service = {
-    Restart = lib.mkOverride 0 "on-failure";
-    RestartSec = "3";
-  };
-
-  systemd.user.services.kdeconnect-indicator.Service = {
-    Restart = lib.mkOverride 0 "on-failure";
-    RestartSec = "3";
-  };
-
-  systemd.user.targets.tray = {
-    Unit = {
-      Description = "Home Manager System Tray";
-      Requires = [ "graphical-session-pre.target" ];
-    };
-  };
-
 }
