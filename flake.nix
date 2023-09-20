@@ -12,7 +12,7 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, newmpkg, pywm-fullscreenpkg, vscode-marketplace, ... }:
+  outputs = { self, nixpkgs, home-manager, nur,... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
