@@ -1,0 +1,8 @@
+name = "ExtractOrgDates"
+uuid = "ff2d7d1b-6483-418e-a58d-f98afd3b1e88"
+authors = ["Alexander Dinges <alexding97@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
