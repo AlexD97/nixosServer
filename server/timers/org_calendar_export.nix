@@ -11,7 +11,7 @@
 
   systemd.services."org-calendar-export" = {
     script = ''
-      /etc/profiles/per-user/alexander/bin/emacs --batch --script ~/flake/scripts/calendar_init.el
+      /etc/profiles/per-user/alexander/bin/emacs --batch --script /home/alexander/flake/scripts/calendar_init.el
     '';
     serviceConfig = {
       Type = "oneshot";

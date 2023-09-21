@@ -65,25 +65,12 @@ in {
       server role = standalone server
     '';
     shares = {
-      server1-home-me = { 
-        path = "/home/alexander/Dokumente/";
-        "guest ok" = "no";
-        public = "yes";
+      sharedfolders = { 
+        path = "/sharedfolders";
+        public = "no";
         writable = "yes";
-        printable = "no";
         browseable = "yes";
-        "read only" = "no";
-        comment = "server1 /home/alexander/Dokumente/ samba share.";
-      };
-      server1-data = {
-        path = "/home/alexander/Downloads";
-        "guest ok" = "no";
-        public = "yes";
-        writable = "yes";
-        printable = "no";
-        browseable = "yes";
-        "read only" = "no";
-        comment = "server1 /home/alexander/Downloads/ samba share.";
+        comment = "server1 /sharedfolders samba share.";
       };
     };
   };

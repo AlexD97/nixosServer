@@ -11,7 +11,7 @@
 
   systemd.services."julia-org-carry-over" = {
     script = ''
-      ${pkgs.julia} ~/flake/scripts/julia_scripts/scripts/carryoverScript.jl
+      ${pkgs.julia-bin}/bin/julia /home/alexander/flake/scripts/julia_scripts/scripts/carryoverScript.jl
     '';
     serviceConfig = {
       Type = "oneshot";
@@ -20,13 +20,15 @@
   };
 
   systemd.services."julia-org-extract" = {
-    script = ''
-      ${pkgs.julia} ~/flake/scripts/julia_scripts/scripts/extractScript.jl
-    '';
+    # script = ''
+    #   ${pkgs.julia-bin}/bin/julia ~/flake/scripts/julia_scripts/scripts/extractScript.jl
+    # '';
+    wantedBy = [ "multi-user.target" ];
+    after = [ "multi-user.target" ];
     serviceConfig = {
-      Type = "oneshot";
+      Type = "simple";
       User = "alexander";
-      After = [ "multi-user.target" ];
-      Requires = [ "multi-user.target" ];
+      ExecStart = "${pkgs.julia-bin}/bin/julia /home/alexander/flake/scripts/julia_scripts/scripts/extractScript.jl";
     };
+  };
 }

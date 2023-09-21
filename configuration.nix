@@ -13,12 +13,13 @@ in
       ./zsh.nix
       ./syncthing.nix
       ./server/timers/org_calendar_export.nix
+      ./server/timers/julia_scripts.nix
 #      ./server/immich.nix
-#      ./server/pihole.nix
+      ./server/pihole.nix
 #      ./server/ssl.nix
 #      ./server/nginx.nix
 #      ./server/nut.nix
-#      ./server/smb.nix
+      ./server/smb.nix
 #      ./server/paperless.nix
 #      ./server/ntfy.nix
     ];
@@ -126,6 +127,7 @@ in
     git
     clang
     gcc
+    julia-bin
     wget
     pass
     pass-secret-service

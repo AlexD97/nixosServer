@@ -41,7 +41,7 @@ in
 
     #python3
     python-with-my-packages
-    julia-bin
+    #julia-bin
     gnumake
     rnix-lsp
     
