@@ -27,12 +27,7 @@ in
   programs.home-manager.enable = true;
 
   imports = [
-    ./desktop/newm
-    ./desktop/sway
-    ./desktop/emacs
-    #./desktop/email
-    ./desktop/eww
-    ./desktop/applications
+    # ./desktop/emacs
     # ./zsh.nix
   ];
 

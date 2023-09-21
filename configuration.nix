@@ -24,7 +24,7 @@ in
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+#  boot.loader.efi.efiSysMountPoint = "/boot/EFI";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -38,6 +38,12 @@ in
   # Enable networking
   networking.networkmanager.enable = true;
   #networking.networkmanager.wifi.scanRandMacAddress = false;
+
+  networking.interfaces.enp1s0.ipv4.addresses = [
+    { address = "192.168.178.24"; 
+      prefixLength = 24;
+    }
+  ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -91,13 +97,13 @@ in
   users.users.${user} = {
     isNormalUser = true;
     description = "alexander";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "users" ];
     packages = with pkgs; [
       git
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEuNFhwtWarRtxgMUx3HPshk0Aj/yOqwBz/YdEQCP17 alexander"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONP4gaWbdIgR+CWkNA8Lb1n1wQ/or7xuF+OI6x4AuZk alexander"
     ];
   };
 

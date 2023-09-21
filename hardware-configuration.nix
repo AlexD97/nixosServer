@@ -18,6 +18,11 @@
       fsType = "ext4";
     };
 
+  fileSystems."/sharedfolders" =
+    { device = "/dev/disk/by-uuid/b624554a-7309-4dde-91dc-122c31c3224e";
+      fsType = "ext4";
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/5BC0-873B";
       fsType = "vfat";
