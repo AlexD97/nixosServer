@@ -73,8 +73,8 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done 'time)
-(setq org-agenda-files (list "~/Dokumente/Notizen/Allgemein.org"
-			     "~/Dokumente/Notizen/journals"))
+(setq org-agenda-files (list "/sharedfolders/Syncthing/Dokumente/Notizen/Allgemein.org"
+			     "/sharedfolders/Syncthing/Dokumente/Notizen/journals"))
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 (add-to-list 'org-latex-packages-alist
@@ -278,7 +278,7 @@
 
 (if (string= (system-name) "UniLaptop")
   (setq org-roam-directory "~/Uni")
-  (setq org-roam-directory "~/Dokumente/Geistliches/Schreiben")
+  (setq org-roam-directory "/sharedfolders/Syncthing/Dokumente/Geistliches/Schreiben")
 )
 (setq org-roam-v2-ack t)
 
@@ -321,7 +321,7 @@
 
     
 ;; Org-journal
-(setq org-journal-dir "~/Dokumente/Notizen/journals/")
+(setq org-journal-dir "/sharedfolders/Syncthing/Dokumente/Notizen/journals/")
 (setq org-journal-file-format "%Y-%m-%d.org")
 (setq org-journal-date-format "%A, %d.%m.%Y")
 (setq org-journal-time-prefix "* ")
@@ -330,7 +330,7 @@
 ;(setq org-journal-enable-agenda-integration t
 ;      org-icalendar-store-UID t
 (setq org-icalendar-include-todo 'all
-      org-icalendar-combined-agenda-file "~/Dokumente/Notizen/journals/org-journal.ics")
+      org-icalendar-combined-agenda-file "/sharedfolders/Syncthing/Dokumente/Notizen/journals/org-journal.ics")
 
 ;; Org-refile
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
@@ -735,8 +735,8 @@
 
 
 ;; Agda
-(load-file (let ((coding-system-for-read 'utf-8))
-                (shell-command-to-string "agda-mode locate")))
+; (load-file (let ((coding-system-for-read 'utf-8))
+;                 (shell-command-to-string "agda-mode locate")))
 
 ;; Quelpa
 (setq quelpa-upgrade-interval 14)

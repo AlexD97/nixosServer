@@ -12,6 +12,7 @@ in
       ./hardware-configuration.nix
       ./zsh.nix
       ./syncthing.nix
+      ./server/timers/org_calendar_export.nix
 #      ./server/immich.nix
 #      ./server/pihole.nix
 #      ./server/ssl.nix

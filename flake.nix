@@ -9,7 +9,7 @@
     };
     nur.url = "github:nix-community/nur";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    # emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
   outputs = { self, nixpkgs, home-manager, nur,... }:
@@ -20,7 +20,7 @@
         config.allowUnfree = true;
         overlays = [
           nur.overlay
-          (import self.inputs.emacs-overlay)
+          # (import self.inputs.emacs-overlay)
 
           (self: super: {
             iosevka-fixed = super.iosevka.override { set = "fixed"; };

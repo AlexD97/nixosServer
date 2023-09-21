@@ -27,7 +27,7 @@ in
   programs.home-manager.enable = true;
 
   imports = [
-    # ./desktop/emacs
+    ./desktop/emacs
     # ./zsh.nix
   ];
 
