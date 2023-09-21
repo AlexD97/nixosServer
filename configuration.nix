@@ -11,6 +11,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./zsh.nix
+      ./syncthing.nix
 #      ./server/immich.nix
 #      ./server/pihole.nix
 #      ./server/ssl.nix
@@ -39,11 +40,16 @@ in
   networking.networkmanager.enable = true;
   #networking.networkmanager.wifi.scanRandMacAddress = false;
 
-  networking.interfaces.enp1s0.ipv4.addresses = [
-    { address = "192.168.178.24"; 
-      prefixLength = 24;
-    }
-  ];
+  # networking.interfaces.enp1s0.ipv4.addresses = [
+  #   { address = "192.168.178.24"; 
+  #     prefixLength = 24;
+  #   }
+  # ];
+
+  # networking.defaultGateway = {
+  #   address = "192.168.178.1";
+  #   interface = "enp1s0";
+  # };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";

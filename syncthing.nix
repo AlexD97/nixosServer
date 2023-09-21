@@ -13,9 +13,9 @@ let
       name = "tablet";
       id = "LQBHRI2-RDHW5ZM-PBQ42UZ-6XUC2BV-R6V24ML-UDOJTQB-XN37KDK-4FOJ7QJ";
     };
-    nas = {
-      name = "nas";
-      id = "ZOBQMXM-ACM5UZJ-5MZPATJ-2SLBGSI-RCE5N5G-ZU5TFMT-JJWHRXM-SDFOFQ3";
+    laptop = {
+      name = "laptop";
+      id = "KGFTRCU-37GTOPV-PIDJJ3L-TUCK2YL-HRXXCME-ETPEVP3-5UFFSLK-VG3KAQX";
     };
   };
   allDevices = allDevicesExceptPixel // {
@@ -28,7 +28,7 @@ let
     "desktop"
     "phone"
     "tablet"
-    "nas"
+    "laptop"
   ];
   devicesNames = devicesNamesExceptPixel ++ [
     "pixel"
@@ -37,11 +37,12 @@ in
 {
   services.syncthing = {
     enable = true;
-    devices = allDevices;
-    dataDir = "/home/alexander";
+    guiAddress = "0.0.0.0:8384";
+    settings.devices = allDevices;
+    dataDir = "/sharedfolders/Syncthing";
     user = "alexander";
 
-    folders =
+    settings.folders =
       let
         staggered = {
           type = "staggered";
@@ -53,13 +54,13 @@ in
       in
         {
         Notizen = {
-          path = "~/Dokumente/Notizen";
+          path = "/sharedfolders/Syncthing/Dokumente/Notizen";
           versioning = staggered;
           devices = devicesNamesExceptPixel;
           id = "bvl4i-olzll";
         };
         Geistliches = {
-          path = "~/Dokumente/Geistliches";
+          path = "/sharedfolders/Syncthing/Dokumente/Geistliches";
           versioning = staggered;
           devices = devicesNamesExceptPixel;
           id = "64kub-awlpo";
