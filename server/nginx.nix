@@ -5,10 +5,15 @@
     enable = true;
 
     virtualHosts = {
-      "bilder.alexanderdinges.de" = {
+      "photos.alexanderdinges.de" = {
         forceSSL = true;
         useACMEHost = "alexanderdinges.de";
         locations."/".proxyPass = "http://127.0.0.1:2283";
+      };
+      "syncthing.alexanderdinges.de" = {
+        forceSSL = true;
+        useACMEHost = "alexanderdinges.de";
+        locations."/".proxyPass = "http://127.0.0.1:8384";
       };
     };
   };

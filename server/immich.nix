@@ -5,9 +5,9 @@ let
   dbPassword = "postgres";
   dbDatabaseName = "immich";
 
-  redisHostname = "192.168.178.43";
+  redisHostname = "192.168.178.24";
   redisPassword = "hunter2";
-  photosLocation = "/home/alexander/Bilder/Immich";
+  photosLocation = "/sharedfolders/Immich";
 
   immichWebUrl = "http://immich_web:3000";
   immichServerUrl = "http://immich_server:3001";
@@ -45,7 +45,7 @@ in {
     immich_server = {
       image = "ghcr.io/immich-app/immich-server:release";
       volumes = [
-        "/home/alexander/Bilder/Immich:/usr/src/app/upload"
+        "/sharedfolders/Immich:/usr/src/app/upload"
       ];
 
       dependsOn = [
@@ -63,7 +63,7 @@ in {
     immich_microservices = {
       image = "ghcr.io/immich-app/immich-server:release";
       volumes = [
-        "/home/alexander/Bilder/Immich:/usr/src/app/upload"
+        "/sharedfolders/Immich:/usr/src/app/upload"
       ];
       dependsOn = [
         "immich_redis"

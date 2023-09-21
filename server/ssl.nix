@@ -10,7 +10,7 @@
       extraDomainNames = [ "*.alexanderdinges.de" ];
       dnsProvider = "netcup";
       dnsPropagationCheck = true;
-      credentialsFile = /home/alexander/Downloads/ssl_secret.txt;
+      credentialsFile = /home/alexander/not_in_flake/ssl_secret.txt;
     };
   };
 
