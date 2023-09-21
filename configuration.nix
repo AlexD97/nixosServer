@@ -20,8 +20,8 @@ in
       ./server/nginx.nix
 #      ./server/nut.nix
       ./server/smb.nix
-#      ./server/paperless.nix
-#      ./server/ntfy.nix
+      ./server/paperless.nix
+      ./server/ntfy.nix
     ];
 
   # Bootloader.

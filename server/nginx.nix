@@ -15,6 +15,19 @@
         useACMEHost = "alexanderdinges.de";
         locations."/".proxyPass = "http://127.0.0.1:8384";
       };
+      "documents.alexanderdinges.de" = {
+        forceSSL = true;
+        useACMEHost = "alexanderdinges.de";
+        locations."/".proxyPass = "http://127.0.0.1:28981";
+      };
+      "ntfy.alexanderdinges.de" = {
+        forceSSL = true;
+        useACMEHost = "alexanderdinges.de";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8123";
+          proxyWebsockets = true;
+        };
+      };
     };
   };
 }

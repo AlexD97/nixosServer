@@ -7,7 +7,7 @@ in {
   power.ups = {
     enable = true;
     mode = "standalone";
-    schedulerRules = "/home/alexander/Downloads/nutRules.conf";
+    schedulerRules = "/home/alexander/flake/server/nut/nutRules.conf";
 
     ups."nutdev1" = {
       driver = "usbhid-ups";
@@ -40,12 +40,12 @@ in {
   '';
 
   systemd.services.upsd.serviceConfig = {
-    User = "root";
+    User = "nut";
     Group = "nut";
   };
 
   systemd.services.upsdrv.serviceConfig = {
-    User = "root";
+    User = "nut";
     Group = "nut";
   };
 
@@ -63,7 +63,7 @@ in {
       target = "nut/upsd.conf";
       mode = "0440";
       group = "nut";
-      user = "root";
+      user = "nut";
     };
 
     upsdUsers = {
@@ -76,13 +76,13 @@ in {
       target = "nut/upsd.users";
       mode = "0440";
       group = "nut";
-      user = "root";
+      user = "nut";
     };
     
     upsmonConf = {
       target = "nut/upsmon.conf";
       text = ''
-        RUN_AS_USER root
+        RUN_AS_USER nut
         MONITOR nutdev1@localhost 1 upsmon ${password} master
 
         MINSUPPLIES 1
@@ -110,7 +110,7 @@ in {
       '';
       mode = "0444";
       group = "nut";
-      user = "root";
+      user = "nut";
     };
 
     # upsschedConf = {

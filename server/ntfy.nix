@@ -7,7 +7,7 @@ in {
     settings = {
       listen-http = ":8123";
       base-url = "https://ntfy.alexanderdinges.de";
-#      cache-file = "/home/alexander/Downloads/ntfy_cache.db";
+      cache-file = "/var/lib/ntfy-sh/ntfy_cache.db";
       cache-duration = "48h";
     };
   };

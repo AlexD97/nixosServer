@@ -4,7 +4,7 @@ let
 in {
   services.paperless = {
     enable = true;
-    dataDir = "/data/Paperless";
+    dataDir = "/sharedfolders/Paperless";
     extraConfig = {
       PAPERLESS_OCR_LANGUAGE = "deu+eng";
     };
