@@ -18,7 +18,7 @@ in
       ./server/pihole.nix
       ./server/ssl.nix
       ./server/nginx.nix
-#      ./server/nut.nix
+      ./server/nut.nix
       ./server/smb.nix
       ./server/paperless.nix
       ./server/ntfy.nix

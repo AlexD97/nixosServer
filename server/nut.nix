@@ -40,12 +40,12 @@ in {
   '';
 
   systemd.services.upsd.serviceConfig = {
-    User = "nut";
+    User = "root";
     Group = "nut";
   };
 
   systemd.services.upsdrv.serviceConfig = {
-    User = "nut";
+    User = "root";
     Group = "nut";
   };
 
@@ -63,7 +63,7 @@ in {
       target = "nut/upsd.conf";
       mode = "0440";
       group = "nut";
-      user = "nut";
+      user = "root";
     };
 
     upsdUsers = {
@@ -76,13 +76,13 @@ in {
       target = "nut/upsd.users";
       mode = "0440";
       group = "nut";
-      user = "nut";
+      user = "root";
     };
     
     upsmonConf = {
       target = "nut/upsmon.conf";
       text = ''
-        RUN_AS_USER nut
+        RUN_AS_USER root
         MONITOR nutdev1@localhost 1 upsmon ${password} master
 
         MINSUPPLIES 1
@@ -110,7 +110,7 @@ in {
       '';
       mode = "0444";
       group = "nut";
-      user = "nut";
+      user = "root";
     };
 
     # upsschedConf = {
