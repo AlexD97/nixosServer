@@ -31,15 +31,20 @@
           "*/.venv"
         ];
         homePath = "/home/alexander";
+        backupPath = "/sharedfolders";
   in {
     homeBackup = rec {
-      paths = "${homePath}";
-      encryption.mode = "none";
-      environment.BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -i ${homePath}/.ssh/id_rsa";
+      paths = "${backupPath}";
+      encryption = {
+        mode = "repokey";
+        passCommand = "cat /home/alexander/not_in_flake/backup_passphrase";
+      };
+      environment.BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -i ${homePath}/.ssh/id_hetzner_storage_box";
       environment.BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
-      repo = "ssh://alexander@omvNAS/sharedfolders/Backups/NixosLaptopBackup";
+      repo = "ssh://u368150@u368150.your-storagebox.de/nixosserverBackup";
+      compression = "zlib,6";
       exclude = map (x: paths + "/" + x) common-excludes;
-      startAt = "*-*-01/2 00:00:00";
+      startAt = "*-*-* 00:03:00";
       extraCreateArgs = "--verbose --stats";
     };
   };
@@ -51,7 +56,7 @@
         DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus";
       };
       script = ''
-        ${pkgs.libnotify}/bin/notify-send -u critical "Borgbackup failed!" "Check journalctl logs"
+        curl -H "Priority: urgent" -H "Title: Borgbackup failed!" -d "Check logs" https://ntfy.alexanderdinges.de
       '';
     };
     notify-borgbackup-success = {
@@ -61,7 +66,7 @@
         DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus";
       };
       script = ''
-        ${pkgs.libnotify}/bin/notify-send "Borgbackup successful"
+        curl -d "Borgbackup successful" https://ntfy.alexanderdinges.de
       '';
     };
     borgbackup-job-homeBackup = {

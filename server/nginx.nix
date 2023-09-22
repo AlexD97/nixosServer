@@ -24,7 +24,7 @@
         forceSSL = true;
         useACMEHost = "alexanderdinges.de";
         locations."/" = {
-          proxyPass = "http://127.0.0.1:8123";
+          proxyPass = "http://127.0.0.1:11611";
           proxyWebsockets = true;
         };
       };
