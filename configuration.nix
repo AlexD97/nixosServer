@@ -11,6 +11,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./zsh.nix
+      ./desktop/borgbackup
       ./syncthing.nix
       ./server/timers/org_calendar_export.nix
       ./server/timers/julia_scripts.nix
@@ -129,6 +130,7 @@ in
     gcc
     julia-bin
     wget
+    curl
     pass
     pass-secret-service
     htop

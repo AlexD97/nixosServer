@@ -6,6 +6,7 @@ in {
     enable = true;
     dataDir = "/sharedfolders/Paperless";
     extraConfig = {
+      PAPERLESS_URL = "https://documents.alexanderdinges.de";
       PAPERLESS_OCR_LANGUAGE = "deu+eng";
     };
   };
