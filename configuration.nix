@@ -109,7 +109,7 @@ in
   users.users.${user} = {
     isNormalUser = true;
     description = "alexander";
-    extraGroups = [ "networkmanager" "wheel" "users" ];
+    extraGroups = [ "networkmanager" "wheel" "users" "paperless" "sharedfolder" ];
     packages = with pkgs; [
       git
     ];
@@ -117,6 +117,29 @@ in
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONP4gaWbdIgR+CWkNA8Lb1n1wQ/or7xuF+OI6x4AuZk alexander"
     ];
+  };
+
+  users.groups.sharedfolder = {
+    name = "sharedfolder";
+    gid = 1000;
+    members = [ "alexander" ];
+  };
+
+  users.users = {
+    "katharina" = {
+      isNormalUser = true;
+      description = "katharina";
+      extraGroups = [];
+      home = "/sharedfolders/katharina";
+      createHome = true;
+    };
+    "christina" = {
+      isNormalUser = true;
+      description = "christina";
+      extraGroups = [];
+      home = "/sharedfolders/christina";
+      createHome = true;
+    };
   };
 
   # Automatic login
