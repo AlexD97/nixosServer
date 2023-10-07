@@ -77,6 +77,16 @@ in {
       environment = environment;
     };
 
+    immich_machine_learning = {
+      image = "ghcr.io/immich-app/immich-machine-learning:release";
+      volumes = [
+        "model-cache:/cache"
+      ];
+
+      extraOptions = [ "--network=immich-bridge" ];
+      environment = environment;
+    };
+
     immich_web = {
       image = "ghcr.io/immich-app/immich-web:release";
 
