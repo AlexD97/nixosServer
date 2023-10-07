@@ -15,6 +15,7 @@ in
       ./syncthing.nix
       ./server/timers/org_calendar_export.nix
       ./server/timers/julia_scripts.nix
+      ./server/timers/immich_backup.nix
       ./server/immich.nix
       ./server/pihole.nix
       ./server/ssl.nix
