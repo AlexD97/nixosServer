@@ -16,6 +16,7 @@
     serviceConfig = {
       Type = "oneshot";
       User = "alexander";
+      TimeoutStopSec = "300";
     };
   };
 }
