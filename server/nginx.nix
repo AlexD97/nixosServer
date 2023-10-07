@@ -36,7 +36,12 @@
       "healthchecks.alexanderdinges.de" = {
         forceSSL = true;
         useACMEHost = "alexanderdinges.de";
-        locations."/".proxyPass = "http://127.0.0.1:3892";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:3892";
+          extraConfig = ''
+            proxy_set_header Origin "";
+          '';
+        };
       };
     };
   };
