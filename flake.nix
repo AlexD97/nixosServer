@@ -27,6 +27,8 @@
             iosevka-fixed-slab = super.iosevka.override { set = "fixed-slab"; };
           })
 
+          #(self: super: {borgbackup = super.borgbackup.overridePythonAttrs (old: { doCheck = false; });})
+
           /*(self: super: {
             my-custom-snip = super.callPackage ./custom/snip.nix { };
           })*/

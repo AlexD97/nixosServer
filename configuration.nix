@@ -109,7 +109,7 @@ in
   users.users.${user} = {
     isNormalUser = true;
     description = "alexander";
-    extraGroups = [ "networkmanager" "wheel" "users" "paperless" "sharedfolder" ];
+    extraGroups = [ "networkmanager" "wheel" "users" "sharedfolder" ];
     packages = with pkgs; [
       git
     ];
@@ -146,7 +146,8 @@ in
   services.getty.autologinUser = "${user}";
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # uncommented since already in flake.nix
+  # nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
