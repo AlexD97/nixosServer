@@ -23,7 +23,12 @@
       "documents.alexanderdinges.de" = {
         forceSSL = true;
         useACMEHost = "alexanderdinges.de";
-        locations."/".proxyPass = "http://127.0.0.1:28981";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:28981";
+          extraConfig = ''
+            client_max_body_size 0;
+          '';
+        };
       };
       "ntfy.alexanderdinges.de" = {
         forceSSL = true;

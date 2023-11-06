@@ -161,6 +161,7 @@ in
     pass
     pass-secret-service
     htop
+    speedtest-cli
     pciutils
     usbutils
     samba
