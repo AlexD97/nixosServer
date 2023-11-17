@@ -26,6 +26,8 @@ in
       ./server/ntfy.nix
       ./server/healthchecks.nix
       ./server/smart.nix
+
+      ./scripts/update-immich.nix
     ];
 
   # Bootloader.
