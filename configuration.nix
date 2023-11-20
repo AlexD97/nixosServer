@@ -27,7 +27,7 @@ in
       ./server/healthchecks.nix
       ./server/smart.nix
 
-      ./scripts/update-immich.nix
+      ./scripts/update_immich.nix
     ];
 
   # Bootloader.
