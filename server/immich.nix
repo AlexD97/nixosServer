@@ -56,6 +56,10 @@ in {
 
       cmd = [ "./start-server.sh" ];
 
+      ports = [
+        "2283:3001"
+      ];
+
       extraOptions = [ "--network=immich-bridge" ];
       environment = environment;
     };
@@ -87,12 +91,12 @@ in {
       environment = environment;
     };
 
-    immich_web = {
-      image = "ghcr.io/immich-app/immich-web:release";
+    # immich_web = {
+    #   image = "ghcr.io/immich-app/immich-web:release";
 
-      extraOptions = [ "--network=immich-bridge" ];
-      environment = environment;
-    };
+    #   extraOptions = [ "--network=immich-bridge" ];
+    #   environment = environment;
+    # };
 
     typesense = {
       image = "typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd";
@@ -121,22 +125,22 @@ in {
       environment = environment;
     };
 
-    immich_proxy = {
-      image = "ghcr.io/immich-app/immich-proxy:release";
+    # immich_proxy = {
+    #   image = "ghcr.io/immich-app/immich-proxy:release";
 
-      ports = [
-        "2283:8080"
-      ];
+    #   ports = [
+    #     "2283:8080"
+    #   ];
 
-      environment = environment;
+    #   environment = environment;
 
-      dependsOn = [
-        "immich_server"
-        "immich_web"
-      ];
+    #   dependsOn = [
+    #     "immich_server"
+    #     "immich_web"
+    #   ];
 
-      extraOptions = [ "--network=immich-bridge" ];
-    };
+    #   extraOptions = [ "--network=immich-bridge" ];
+    # };
   };
   
   systemd.services.init-immich-network = {
