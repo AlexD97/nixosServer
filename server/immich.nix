@@ -12,9 +12,6 @@ let
   immichWebUrl = "http://immich_web:3000";
   immichServerUrl = "http://immich_server:3001";
   immichMachineLearningUrl = "http://immich_machine_learning:3003";
-
-  typesenseApiKey = "abcxyz123";
-  typesenseDataDir = "/data";
   
   environment = {
     DB_HOSTNAME = dbHostname;
@@ -26,9 +23,6 @@ let
 #    REDIS_PASSWORD = redisPassword;
     
     UPLOAD_LOCATION = photosLocation;
-
-    TYPESENSE_API_KEY = typesenseApiKey;
-    TYPESENSE_DATA_DIR = typesenseDataDir;
 
     IMMICH_WEB_URL = immichWebUrl;
     IMMICH_SERVER_URL = immichServerUrl;
@@ -51,7 +45,6 @@ in {
       dependsOn = [
         "immich_redis"
         "immich_postgres"
-        "typesense"
       ];
 
       cmd = [ "./start-server.sh" ];
@@ -72,7 +65,6 @@ in {
       dependsOn = [
         "immich_redis"
         "immich_postgres"
-        "typesense"
       ];
 
       cmd = [ "./start-microservices.sh" ];
@@ -91,23 +83,6 @@ in {
       environment = environment;
     };
 
-    # immich_web = {
-    #   image = "ghcr.io/immich-app/immich-web:release";
-
-    #   extraOptions = [ "--network=immich-bridge" ];
-    #   environment = environment;
-    # };
-
-    typesense = {
-      image = "typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd";
-      volumes = [
-        "tsdata:/data"
-      ];
-
-      extraOptions = [ "--network=immich-bridge" ];
-      environment = environment;
-    };
-
     immich_redis = {
       image = "redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3";
 
@@ -115,7 +90,7 @@ in {
     };
 
     immich_postgres = {
-      image = "postgres:14-alpine@sha256:28407a9961e76f2d285dc6991e8e48893503cc3836a4755bbc2d40bcc272a441";
+      image = "tensorchord/pgvecto-rs:pg14-v0.1.11";
 
       volumes = [
         "pgdata:/var/lib/postgresql/data"
@@ -125,22 +100,6 @@ in {
       environment = environment;
     };
 
-    # immich_proxy = {
-    #   image = "ghcr.io/immich-app/immich-proxy:release";
-
-    #   ports = [
-    #     "2283:8080"
-    #   ];
-
-    #   environment = environment;
-
-    #   dependsOn = [
-    #     "immich_server"
-    #     "immich_web"
-    #   ];
-
-    #   extraOptions = [ "--network=immich-bridge" ];
-    # };
   };
   
   systemd.services.init-immich-network = {
