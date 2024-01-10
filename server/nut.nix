@@ -2,12 +2,50 @@
 let
   vid = "0463";
   pid = "FFFF";
-  password = "nichtgeheim";
 in {
   power.ups = {
     enable = true;
     mode = "standalone";
     schedulerRules = "/home/alexander/flake/server/nut/nutRules.conf";
+
+    upsmon = {
+      enable = true;
+      monitor."nutdev1@localhost" = {
+        user = "upsmon";
+        passwordFile = "/home/alexander/not_in_flake/upsmon_password";
+        type = "master";
+        powerValue = 1;
+      };
+
+      settings = {
+        MINSUPPLIES = 1;
+        RUN_AS_USER = "root";
+
+        SHUTDOWNCMD = "shutdown -h 0";
+        POLLFREQ = 5;
+        POLLFREQALERT = 5;
+        HOSTSYNC = 15;
+        DEADTIME = 15;
+        RBWARNTIME = 43200;
+        NOCOMMWARNTIME = 300;
+        FINALDELAY = 5;
+
+        NOTIFYCMD = "/run/current-system/sw/bin/upssched";
+
+        NOTIFYFLAG = [
+          ["ONLINE"       "SYSLOG+WALL+EXEC"]
+          ["ONBATT"       "SYSLOG+WALL+EXEC"]
+          ["LOWBATT"      "SYSLOG+WALL+EXEC"]
+          ["FSD"          "SYSLOG+WALL+EXEC"]
+          ["COMMOK"       "SYSLOG+WALL+EXEC"]
+          ["COMMBAD"      "SYSLOG+WALL+EXEC"]
+          ["SHUTDOWN"     "SYSLOG+WALL+EXEC"]
+          ["REPLBATT"     "SYSLOG+WALL+EXEC"]
+          ["NOCOMM"       "SYSLOG+WALL+EXEC"]
+          ["NOPARENT"     "SYSLOG+WALL+EXEC"]
+        ];
+      };
+    };
 
     ups."nutdev1" = {
       driver = "usbhid-ups";
@@ -20,6 +58,20 @@ in {
 #        "ignorelb" # needed to make battery.charge.low relevant for low battery event
       ];
       maxStartDelay = null;
+    };
+
+    upsd = {
+      enable = true;
+      extraConfig = ''
+        ALLOW_NO_DEVICE true
+      '';
+    };
+
+    users = {
+      upsmon = {
+        passwordFile = "/home/alexander/not_in_flake/upsmon_password";
+        upsmon = "master";
+      };
     };
   };
 
@@ -54,64 +106,64 @@ in {
     RestartSec = "3";
   };
 
-  environment.etc = {
+  # environment.etc = {
     # all this file needs to do is exist
-    upsdConf = {
-      text = ''
-        ALLOW_NO_DEVICE true
-      '';
-      target = "nut/upsd.conf";
-      mode = "0440";
-      group = "nut";
-      user = "root";
-    };
+    # upsdConf = {
+    #   text = ''
+    #     ALLOW_NO_DEVICE true
+    #   '';
+    #   target = "nut/upsd.conf";
+    #   mode = "0440";
+    #   group = "nut";
+    #   user = "root";
+    # };
 
-    upsdUsers = {
-      # update upsmonConf MONITOR to match
-      text = ''
-      [upsmon]
-        password = ${password}
-        upsmon master
-      '';
-      target = "nut/upsd.users";
-      mode = "0440";
-      group = "nut";
-      user = "root";
-    };
+    # upsdUsers = {
+    #   # update upsmonConf MONITOR to match
+    #   text = ''
+    #   [upsmon]
+    #     password = ${password}
+    #     upsmon master
+    #   '';
+    #   target = "nut/upsd.users";
+    #   mode = "0440";
+    #   group = "nut";
+    #   user = "root";
+    # };
     
-    upsmonConf = {
-      target = "nut/upsmon.conf";
-      text = ''
-        RUN_AS_USER root
-        MONITOR nutdev1@localhost 1 upsmon ${password} master
+    # upsmonConf = {
+    #   target = "nut/upsmon.conf";
+    #   text = ''
+    #     RUN_AS_USER root
+    #     MONITOR nutdev1@localhost 1 upsmon ${password} master
 
-        MINSUPPLIES 1
-        SHUTDOWNCMD "shutdown -h 0"
-        POLLFREQ 5
-        POLLFREQALERT 5
-        HOSTSYNC 15
-        DEADTIME 15
-        RBWARNTIME 43200
-        NOCOMMWARNTIME 300
-        FINALDELAY 5
+    #     MINSUPPLIES 1
+    #     SHUTDOWNCMD "shutdown -h 0"
+    #     POLLFREQ 5
+    #     POLLFREQALERT 5
+    #     HOSTSYNC 15
+    #     DEADTIME 15
+    #     RBWARNTIME 43200
+    #     NOCOMMWARNTIME 300
+    #     FINALDELAY 5
 
-        NOTIFYCMD /run/current-system/sw/bin/upssched
+    #     NOTIFYCMD /run/current-system/sw/bin/upssched
 
-        NOTIFYFLAG ONLINE       SYSLOG+WALL+EXEC
-        NOTIFYFLAG ONBATT       SYSLOG+WALL+EXEC
-        NOTIFYFLAG LOWBATT      SYSLOG+WALL+EXEC
-        NOTIFYFLAG FSD          SYSLOG+WALL+EXEC
-        NOTIFYFLAG COMMOK       SYSLOG+WALL+EXEC
-        NOTIFYFLAG COMMBAD      SYSLOG+WALL+EXEC
-        NOTIFYFLAG SHUTDOWN     SYSLOG+WALL+EXEC
-        NOTIFYFLAG REPLBATT     SYSLOG+WALL+EXEC
-        NOTIFYFLAG NOCOMM       SYSLOG+WALL+EXEC
-        NOTIFYFLAG NOPARENT     SYSLOG+WALL+EXEC
-      '';
-      mode = "0444";
-      group = "nut";
-      user = "root";
-    };
+    #     NOTIFYFLAG ONLINE       SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG ONBATT       SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG LOWBATT      SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG FSD          SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG COMMOK       SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG COMMBAD      SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG SHUTDOWN     SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG REPLBATT     SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG NOCOMM       SYSLOG+WALL+EXEC
+    #     NOTIFYFLAG NOPARENT     SYSLOG+WALL+EXEC
+    #   '';
+    #   mode = "0444";
+    #   group = "nut";
+    #   user = "root";
+    # };
 
     # upsschedConf = {
     #   target = "nut/upssched.conf";
@@ -147,6 +199,6 @@ in {
     #   group = "nut";
     #   user = "root";
     # };
-  };
+  # };
 }
 
