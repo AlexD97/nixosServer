@@ -5,7 +5,7 @@ in {
   services.paperless = {
     enable = true;
     dataDir = "/sharedfolders/Paperless";
-    extraConfig = {
+    settings = {
       PAPERLESS_URL = "https://documents.alexanderdinges.de";
       PAPERLESS_OCR_LANGUAGE = "deu+eng";
     };
