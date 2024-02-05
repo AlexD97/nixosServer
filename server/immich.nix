@@ -84,13 +84,13 @@ in {
     };
 
     immich_redis = {
-      image = "redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3";
+      image = "redis:6.2-alpine@sha256:51d6c56749a4243096327e3fb964a48ed92254357108449cb6e23999c37773c5";
 
       extraOptions = [ "--network=immich-bridge" ];
     };
 
     immich_postgres = {
-      image = "tensorchord/pgvecto-rs:pg14-v0.1.11";
+      image = "tensorchord/pgvecto-rs:pg14-v0.1.11@sha256:0335a1a22f8c5dd1b697f14f079934f5152eaaa216c09b61e293be285491f8ee";
 
       volumes = [
         "pgdata:/var/lib/postgresql/data"
