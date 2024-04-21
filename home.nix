@@ -43,7 +43,7 @@ in
     python-with-my-packages
     #julia-bin
     gnumake
-    rnix-lsp
+    nil
     
     zsh
     fzf
@@ -57,8 +57,8 @@ in
     (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" "JetBrainsMono" ]; })
     #iosevka-fixed
     #iosevka-fixed-slab
-    (iosevka-bin.override { variant = "sgr-iosevka-fixed"; } )
-    (iosevka-bin.override { variant = "sgr-iosevka-fixed-curly-slab"; } )
+    (iosevka-bin.override { variant = "SGr-IosevkaFixed"; } )
+    (iosevka-bin.override { variant = "SGr-IosevkaFixedCurlySlab"; } )
     alegreya
     alegreya-sans
     gyre-fonts
