@@ -6,7 +6,6 @@ let
     sudo docker pull ghcr.io/immich-app/immich-machine-learning:release
 
     systemctl restart docker-immich_server.service
-    systemctl restart docker-immich_microservices.service
     systemctl restart docker-immich_machine_learning.service
 
     sudo docker system prune -f

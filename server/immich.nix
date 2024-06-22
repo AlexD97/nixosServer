@@ -47,27 +47,11 @@ in {
         "immich_postgres"
       ];
 
-      cmd = [ "./start-server.sh" ];
+      # cmd = [ "./start-server.sh" ];
 
       ports = [
         "2283:3001"
       ];
-
-      extraOptions = [ "--network=immich-bridge" ];
-      environment = environment;
-    };
-
-    immich_microservices = {
-      image = "ghcr.io/immich-app/immich-server:release";
-      volumes = [
-        "/sharedfolders/Immich:/usr/src/app/upload"
-      ];
-      dependsOn = [
-        "immich_redis"
-        "immich_postgres"
-      ];
-
-      cmd = [ "./start-microservices.sh" ];
 
       extraOptions = [ "--network=immich-bridge" ];
       environment = environment;
