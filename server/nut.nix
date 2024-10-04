@@ -70,7 +70,7 @@ in {
     users = {
       upsmon = {
         passwordFile = "/home/alexander/not_in_flake/upsmon_password";
-        upsmon = "master";
+        upsmon = "primary";
       };
     };
   };

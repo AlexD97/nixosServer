@@ -166,12 +166,14 @@ in
     pass-secret-service
     htop
     speedtest-cli
+    iperf
     pciutils
     usbutils
     samba
     unzip
     lsof
     nut
+    smartmontools
 
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   ];
