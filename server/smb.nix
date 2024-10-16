@@ -56,23 +56,39 @@ in {
   services.samba = {
     enable = true;
     package = pkgs.samba4Full;
-    securityType = "user";
-    invalidUsers = [ "root" ];
+    # securityType = "user";
+    # invalidUsers = [ "root" ];
     openFirewall = true;
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = smbnix
-      server role = standalone server
-    '';
-    shares = {
-      sharedfolders = { 
-        path = "/sharedfolders";
-        public = "no";
-        writable = "yes";
-        browseable = "yes";
-        comment = "server1 /sharedfolders samba share.";
+    settings = {
+      global = {
+        "invalid users" = [ "root" ];
+        "security" = "user";
+        "workgroup" = "WORKGROUP";
+        "server string" = "smbnix";
+        "server role" = "standalone server";
+      };
+      sharedfolders = {
+        "path" = "/sharedfolders";
+        "public" = "no";
+        "writable" = "yes";
+        "browseable" = "yes";
+        "comment" = "server1 /sharedfolders samba share.";
       };
     };
+    # extraConfig = ''
+    #   workgroup = WORKGROUP
+    #   server string = smbnix
+    #   server role = standalone server
+    # '';
+    # shares = {
+    #   sharedfolders = { 
+    #     path = "/sharedfolders";
+    #     public = "no";
+    #     writable = "yes";
+    #     browseable = "yes";
+    #     comment = "server1 /sharedfolders samba share.";
+    #   };
+    # };
   };
 
   services.samba-wsdd = {
