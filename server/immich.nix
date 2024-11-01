@@ -10,7 +10,7 @@ let
   photosLocation = "/sharedfolders/Immich";
 
   immichWebUrl = "http://immich_web:3000";
-  immichServerUrl = "http://immich_server:3001";
+  immichServerUrl = "http://immich_server:2283";
   immichMachineLearningUrl = "http://immich_machine_learning:3003";
   
   environment = {
@@ -50,7 +50,7 @@ in {
       # cmd = [ "./start-server.sh" ];
 
       ports = [
-        "2283:3001"
+        "2283:2283"
       ];
 
       extraOptions = [ "--network=immich-bridge" ];
