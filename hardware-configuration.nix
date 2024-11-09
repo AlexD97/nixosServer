@@ -20,6 +20,7 @@
 
   fileSystems."/sharedfolders" =
     { device = "/dev/disk/by-uuid/b624554a-7309-4dde-91dc-122c31c3224e";
+      # device = "/dev/disk/by-uuid/2a583b3a-9b56-516a-1a1e-f3206a36d65f";
       fsType = "ext4";
     };
 
