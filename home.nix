@@ -54,7 +54,12 @@ in
 
     emacs-all-the-icons-fonts
     material-design-icons
-    (nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" "JetBrainsMono" ]; })
+    #(nerdfonts.override { fonts = ["FiraCode" "DroidSansMono" "Iosevka" "SourceCodePro" "JetBrainsMono" ]; })
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.iosevka
+    nerd-fonts.sauce-code-pro
+    nerd-fonts.jetbrains-mono
     #iosevka-fixed
     #iosevka-fixed-slab
     (iosevka-bin.override { variant = "SGr-IosevkaFixed"; } )
