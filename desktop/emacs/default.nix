@@ -57,8 +57,8 @@
 
       epkgs.org-roam
       epkgs.emacsql
-      epkgs.emacsql-sqlite
-      #epkgs.emacsql-sqlite3
+      #epkgs.emacsql-sqlite
+      epkgs.sqlite3
       epkgs.org-journal
       epkgs.one-themes
     ];

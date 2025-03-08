@@ -41,8 +41,8 @@ end
 
 function divide_document(document::Org.OrgDoc)
     divided_document = divide_headings(document)
-    old = OrgDoc(collect(Iterators.flatten(filter(sec->!contains_todo(sec), divided_document))))
-    new = OrgDoc(collect(Iterators.flatten(filter(contains_todo, divided_document))))
+    old = Org.OrgDoc(collect(Iterators.flatten(filter(sec->!contains_todo(sec), divided_document))))
+    new = Org.OrgDoc(collect(Iterators.flatten(filter(contains_todo, divided_document))))
 
     return old, new
 end
@@ -82,7 +82,7 @@ function extract_and_delete_carryover(d::Dates.Date)
         rm(filepath)
     else
         io = open(filepath, "w")
-        org(io, old)
+        Org.org(io, old)
         close(io)
     end
     return new
@@ -96,7 +96,7 @@ function org_doc_from_file(path::AbstractString)
     io = open(path, "r")
     org_string = read(io, String)
     close(io)
-    org_parsed = Org.parse(OrgDoc, org_string)
+    org_parsed = Org.parse(Org.OrgDoc, org_string)
     return org_parsed
 end
 
