@@ -8,11 +8,15 @@ in {
       image = "pihole/pihole:latest";
       environment = {
         TZ = "Europe/Berlin";
-        DNS1 = "1.1.1.1";
-        DNS2 = "8.8.8.8";
+        FTLCONF_dns_upstreams = "1.1.1.1;8.8.8.8";
         FTLCONF_LOCAL_IPV4 = "192.168.178.100";
         FTLCONF_LOCAL_IPV6 = "fd00::52e6:36ff:6496:f0f6";
-        WEBPASSWORD = "nixpihole";
+        FTLCONF_webserver_api_password = "nixpihole";
+        # DNS1 = "1.1.1.1";
+        # DNS2 = "8.8.8.8";
+        # FTLCONF_LOCAL_IPV4 = "192.168.178.100";
+        # FTLCONF_LOCAL_IPV6 = "fd00::52e6:36ff:6496:f0f6";
+        # WEBPASSWORD = "nixpihole";
       };
       # ports = [
       #   "53:53/tcp"
@@ -23,7 +27,7 @@ in {
       # ];
       volumes = [
         "/home/alexander/Docker/pihole/etc-pihole:/etc/pihole:rw"
-        "/home/alexander/Docker/pihole/etc-dnsmasq.d:/etc/dnsmasq.d:rw"
+#        "/home/alexander/Docker/pihole/etc-dnsmasq.d:/etc/dnsmasq.d:rw"
       ];
       extraOptions = [
 #        "--dns=127.0.0.1"
