@@ -29,6 +29,7 @@
           "*/.tox"
           "*/venv"
           "*/.venv"
+          "Sonstiges/Gemeindebilder"
         ];
         homePath = "/home/alexander";
         backupPath = "/sharedfolders";
