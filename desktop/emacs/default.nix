@@ -60,7 +60,8 @@
       #epkgs.emacsql-sqlite
       epkgs.sqlite3
       epkgs.org-journal
-      epkgs.one-themes
+      #epkgs.one-themes
+      epkgs.doom-themes
     ];
   };
 

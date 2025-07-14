@@ -28,7 +28,8 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;(load-theme 'atom-one-light t)
-(load-theme 'one-light t)
+;(load-theme 'one-light t)
+(load-theme 'doom-one-light t)
 
 
 ;; ;; Xah fly keys
