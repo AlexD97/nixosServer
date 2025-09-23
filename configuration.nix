@@ -23,6 +23,7 @@ in
       ./server/nut.nix
       ./server/smb.nix
       ./server/paperless.nix
+      ./server/karakeep.nix
       ./server/ntfy.nix
       ./server/healthchecks.nix
       ./server/smart.nix
