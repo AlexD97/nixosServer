@@ -55,7 +55,8 @@ in {
   # };
   services.samba = {
     enable = true;
-    package = pkgs.samba4Full;
+    # package = pkgs.samba4Full;
+    package = pkgs.samba;
     # securityType = "user";
     # invalidUsers = [ "root" ];
     openFirewall = true;
