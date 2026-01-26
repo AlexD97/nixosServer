@@ -19,7 +19,7 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [
-          nur.overlay
+          nur.overlays.default
           # (import self.inputs.emacs-overlay)
 
           (self: super: {
