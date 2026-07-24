@@ -3,10 +3,6 @@ let
   allDevicesExceptPixel = {
     phone = {
       name = "phone";
-      id = "R3X7TBQ-HG35NDY-OXJSFNG-MFNWHAV-HUIRI4G-YCKWIT6-4WXYHG2-3QHBIQM";
-    };
-    oppo = {
-      name = "oppo";
       id = "A2KIQS2-TFUCGOR-OM7RYUB-FRPLNDV-GB2S37W-7Z6PAST-UYSPLUB-ORV5SA4";
     };
     tablet = {
@@ -25,7 +21,6 @@ let
     };
   };
   devicesNamesExceptPixel = [
-    "desktop"
     "phone"
     "tablet"
     "laptop"

@@ -71,7 +71,7 @@ in
     xits-math
 
     texlive.combined.scheme-full
-    lhs2tex
+    # lhs2tex
 
     pandoc
 
